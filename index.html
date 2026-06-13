@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economic Dashboard — V-H1</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3348;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --accent: #6366f1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.6; }
+
+    /* HEADER */
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header h1 { font-size: 15px; font-weight: 600; color: var(--text); }
+    .staleness { font-size: 12px; color: var(--muted); }
+    .staleness.stale { color: var(--yellow); }
+    .staleness.very-stale { color: var(--red); }
+
+    /* BIAS CARD */
+    .bias-card { margin: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .bias-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+    .bias-value { font-size: 22px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+    .bias-value.bullish { color: var(--green); }
+    .bias-value.cautious { color: var(--yellow); }
+    .bias-value.neutral { color: var(--blue); }
+    .bias-value.bearish { color: var(--red); }
+    .bias-reason { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .watch-line { font-size: 13px; color: var(--text); padding: 8px 12px; background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 4px; }
+    .watch-label { font-size: 11px; font-weight: 600; color: var(--accent); display: block; margin-bottom: 2px; }
+
+    /* INDICATORS */
+    .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; padding: 12px 16px 6px; }
+    .indicators { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px; }
+    .ind { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+    .ind.alert { border-color: var(--yellow); }
+    .ind-name { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .ind-value { font-size: 17px; font-weight: 600; }
+    .ind-change { font-size: 12px; color: var(--muted); }
+    .ind-change.up { color: var(--green); }
+    .ind-change.down { color: var(--red); }
+    .ind-note { font-size: 11px; color: var(--yellow); margin-top: 2px; }
+
+    /* FII special — full width */
+    .ind.full { grid-column: 1 / -1; }
+
+    /* THREADS */
+    .threads { padding: 0 16px 8px; display: flex; flex-direction: column; gap: 8px; }
+    .thread { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+    .thread-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .thread-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .thread-dot.red { background: var(--red); }
+    .thread-dot.yellow { background: var(--yellow); }
+    .thread-dot.green { background: var(--green); }
+    .thread-name { font-size: 13px; font-weight: 600; }
+    .thread-pov { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .thread-watch { font-size: 12px; color: var(--text); padding: 6px 8px; background: var(--surface2); border-radius: 4px; }
+    .thread-watch-label { font-size: 10px; font-weight: 600; color: var(--accent); display: block; margin-bottom: 1px; }
+
+    /* WEEKLY POV */
+    .weekly-card { margin: 0 16px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+    .weekly-posture { font-size: 13px; font-style: italic; color: var(--muted); border-top: 1px solid var(--border); margin-top: 10px; padding-top: 10px; }
+
+    /* CHARTS — web only */
+    .charts-section { padding: 0 16px 8px; }
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .chart-wrap iframe { display: block; width: 100%; height: 220px; border: none; }
+
+    /* FOOTER */
+    .footer { padding: 16px; text-align: center; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 8px; }
+    .confidence-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+    .confidence-badge.high { background: rgba(34,197,94,0.15); color: var(--green); }
+    .confidence-badge.medium { background: rgba(234,179,8,0.15); color: var(--yellow); }
+    .confidence-badge.low { background: rgba(239,68,68,0.15); color: var(--red); }
+
+    /* MOBILE: hide charts */
+    @media (max-width: 600px) {
+      .charts-section { display: none; }
+      .chart-grid { grid-template-columns: 1fr; }
+    }
+    /* DESKTOP: expand charts */
+    @media (min-width: 601px) {
+      .bias-card, .threads, .indicators, .weekly-card, .charts-section, .section-title { max-width: 900px; margin-left: auto; margin-right: auto; }
+      .bias-card { margin: 16px auto; }
+      .indicators { padding: 0; }
+      .threads, .charts-section { padding: 0; }
+      .weekly-card { margin: 0 0 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header h1">📊 Economic Dashboard</div>
+  </div>
+  <div class="staleness" id="staleness">Loading...</div>
+</div>
+
+<div id="app">
+  <div style="padding: 40px 16px; text-align: center; color: var(--muted);">Loading dashboard...</div>
+</div>
+
+<!-- TradingView Charts (web only) -->
+<div class="charts-section" id="charts" style="display:none;">
+  <div class="section-title">CHARTS</div>
+  <div class="chart-grid">
+    <div class="chart-wrap">
+      <!-- Nifty 50 -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        {"symbol":"NSE:NIFTY","width":"100%","height":220,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}</script>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <!-- India VIX -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        {"symbol":"NSE:INDIAVIX","width":"100%","height":220,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}</script>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <!-- USDINR -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        {"symbol":"FX:USDINR","width":"100%","height":220,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}</script>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <!-- Brent Crude -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        {"symbol":"TVC:UKOIL","width":"100%","height":220,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}</script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer" id="footer"></div>
+
+<script>
+const DATA_URL = 'dashboard-data.json?t=' + Date.now();
+
+function staleness(isoStr) {
+  if (!isoStr) return { text: '⚠️ Never updated', cls: 'very-stale' };
+  const diff = (Date.now() - new Date(isoStr)) / 60000; // minutes
+  if (diff < 90) return { text: `✅ Updated ${Math.round(diff)}m ago`, cls: '' };
+  if (diff < 36 * 60) return { text: `⚠️ Updated ${Math.round(diff/60)}h ago`, cls: 'stale' };
+  return { text: `🚨 Stale: ${Math.round(diff/(60*24))}d ago`, cls: 'very-stale' };
+}
+
+function changeClass(change) {
+  if (!change || change === '--') return '';
+  if (change.startsWith('+')) return 'up';
+  if (change.startsWith('-')) return 'down';
+  return '';
+}
+
+function threadStatus(status) {
+  const map = { red: '🔴', yellow: '🟡', green: '🟢' };
+  return map[status] || '⚪';
+}
+
+function render(d) {
+  const daily = d.daily || {};
+  const weekly = d.weekly || {};
+  const inds = daily.indicators || {};
+  const threads = (weekly.threads || []);
+
+  // Staleness
+  const s = staleness(d.meta && d.meta.last_updated);
+  document.getElementById('staleness').textContent = s.text;
+  document.getElementById('staleness').className = 'staleness ' + s.cls;
+
+  // Confidence badge
+  const conf = daily.confidence || 'medium';
+
+  let html = '';
+
+  // BIAS CARD
+  html += `
+  <div class="bias-card">
+    <div class="bias-label">Today's Bias <span class="confidence-badge ${conf}">${conf}</span></div>
+    <div class="bias-value ${daily.bias || 'neutral'}">${(daily.bias || 'NEUTRAL').toUpperCase()}</div>
+    <div class="bias-reason">${daily.bias_reason || ''}</div>
+    <div class="watch-line">
+      <span class="watch-label">WATCH</span>
+      ${daily.watch || ''}
+    </div>
+  </div>`;
+
+  // INDICATORS
+  html += `<div class="section-title">INDICATORS</div>`;
+  html += `<div class="indicators">`;
+
+  const indOrder = ['nifty','vix','usdinr','pcr','breadth','crude'];
+  for (const key of indOrder) {
+    const ind = inds[key] || {};
+    const alert = ind.alert ? ' alert' : '';
+    const chgCls = changeClass(ind.change || '');
+    html += `
+    <div class="ind${alert}">
+      <div class="ind-name">${key.toUpperCase()}</div>
+      <div class="ind-value">${ind.value || '--'}</div>
+      <div class="ind-change ${chgCls}">${ind.change || '--'}</div>
+    </div>`;
+  }
+
+  // FII full width
+  const fii = inds.fii || {};
+  html += `
+  <div class="ind full${fii.alert ? ' alert' : ''}">
+    <div class="ind-name">FII NET FLOW</div>
+    <div class="ind-value">${fii.value || '--'}</div>
+    <div class="ind-change ${changeClass(fii.value || '')}">${fii.note || ''}</div>
+  </div>`;
+
+  // MMI
+  const mmi = inds.mmi || {};
+  html += `
+  <div class="ind${mmi.alert ? ' alert' : ''}">
+    <div class="ind-name">MMI</div>
+    <div class="ind-value">${mmi.value || '--'}</div>
+    <div class="ind-change">${mmi.zone || '--'}</div>
+  </div>`;
+
+  html += `</div>`; // end indicators
+
+  // ACTIVE THREADS
+  html += `<div class="section-title">ACTIVE THREADS (${threads.length})</div>`;
+  html += `<div class="threads">`;
+  for (const t of threads) {
+    html += `
+    <div class="thread">
+      <div class="thread-header">
+        <div class="thread-dot ${t.status || 'yellow'}"></div>
+        <div class="thread-name">${t.name}</div>
+      </div>
+      <div class="thread-pov">${t.pov || ''}</div>
+      <div class="thread-watch">
+        <span class="thread-watch-label">WATCH NEXT WEEK</span>
+        ${t.watch_next_week || ''}
+      </div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // WEEKLY POV
+  if (weekly.summary) {
+    html += `<div class="section-title">WEEKLY POV</div>`;
+    html += `<div class="weekly-card">
+      <div style="font-size:13px; margin-bottom:8px;">${weekly.summary}</div>`;
+    if (weekly.market_posture) {
+      html += `<div class="weekly-posture">"${weekly.market_posture}"</div>`;
+    }
+    html += `</div>`;
+  }
+
+  document.getElementById('app').innerHTML = html;
+
+  // Show charts on desktop
+  if (window.innerWidth > 600) {
+    document.getElementById('charts').style.display = 'block';
+  }
+
+  // Footer
+  const updated = d.meta && d.meta.last_updated ? new Date(d.meta.last_updated).toLocaleString('en-IN', {timeZone:'Asia/Kolkata'}) : 'unknown';
+  document.getElementById('footer').innerHTML = `
+    Daily scan: ${d.meta && d.meta.last_loop3 ? new Date(d.meta.last_loop3).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}) : 'pending'} &nbsp;|&nbsp;
+    Weekly: ${d.meta && d.meta.last_loop2 ? new Date(d.meta.last_loop2).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}) : 'pending'} &nbsp;|&nbsp;
+    v${d.meta && d.meta.version || 'vh1'}
+  `;
+}
+
+fetch(DATA_URL)
+  .then(r => r.json())
+  .then(render)
+  .catch(e => {
+    document.getElementById('app').innerHTML = `<div style="padding:40px 16px;text-align:center;color:var(--red);">⚠️ Failed to load dashboard data.<br><small>${e.message}</small></div>`;
+    document.getElementById('staleness').textContent = '🚨 Data load failed';
+    document.getElementById('staleness').className = 'staleness very-stale';
+  });
+</script>
+</body>
+</html>

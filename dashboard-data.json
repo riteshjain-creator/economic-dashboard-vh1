@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "last_updated": "2026-06-13T19:00:00+05:30",
+    "last_loop3": null,
+    "last_loop2": null,
+    "version": "vh1"
+  },
+  "daily": {
+    "date": "2026-06-13",
+    "bias": "cautious",
+    "bias_reason": "FII sold ₹76,408 Cr in 30 days. DII absorbing but floor is thin. Nifty 6% off 52W lows.",
+    "watch": "Watch FII daily flow — 3 consecutive buy days = T1 Capitulation Reversal activates.",
+    "commentary": "Nifty recovered +1.99% today to 23,622 but is near 52W lows. Heavy FII outflows (-₹15,316 Cr last 7 days) are being offset by strong DII buying (+₹24,014 Cr). The DII floor is holding but structural FII selling signals EM de-risking. June MPC and monsoon onset are the near-term catalysts.",
+    "confidence": "medium",
+    "indicators": {
+      "nifty": { "value": "23,622", "change": "+1.99%", "alert": false },
+      "vix": { "value": "--", "change": "--", "alert": false },
+      "usdinr": { "value": "--", "change": "--", "alert": false },
+      "pcr": { "value": "--", "change": "--", "alert": false },
+      "breadth": { "value": "76%", "change": "39/12 A/D", "alert": false },
+      "crude": { "value": "--", "change": "--", "alert": false },
+      "fii": { "value": "-₹1,082 Cr", "note": "7-day: -₹15,316 Cr | 30-day: -₹76,408 Cr", "alert": true },
+      "mmi": { "value": "--", "zone": "--", "alert": false }
+    },
+    "sectors_positive": [],
+    "sectors_negative": []
+  },
+  "weekly": {
+    "date": "2026-06-13",
+    "summary": "Dashboard initialized. First weekly synthesis will run Saturday June 14, 2026.",
+    "threads": [
+      {
+        "name": "FII Exodus — Structural Outflow",
+        "status": "red",
+        "models_applied": ["monetary_transmission", "financial_stability"],
+        "pov": "FII sold ₹76,408 Cr in 30 days — likely driven by DXY strength and EM rotation to China. DII SIP flows are the floor. T1 Capitulation Reversal setup forming. When FII turns, reversal will be sharp.",
+        "watch_next_week": "Daily FII cash — 3 consecutive buy days = T1 model activates. Monitor FII L/S ratio on NSE Bhavcopy.",
+        "confidence": "high",
+        "sources": ["ET Markets FII/DII data June 12, 2026"]
+      },
+      {
+        "name": "RBI Rate Cycle — Transmission Lag",
+        "status": "yellow",
+        "models_applied": ["monetary_transmission", "consumption_squeeze"],
+        "pov": "RBI cuts are in system (repo at 5.75%) but credit growth and housing recovery are lagging. June MPC outcome + INR trajectory will determine if easing continues or pauses.",
+        "watch_next_week": "June MPC decision and RBI governor language on INR vs. growth trade-off. Banking/NBFC stocks reaction.",
+        "confidence": "medium",
+        "sources": ["RBI policy history, backtest W01 Dec 2025"]
+      },
+      {
+        "name": "Monsoon 2026 Onset",
+        "status": "yellow",
+        "models_applied": ["consumption_squeeze", "formalization_thesis"],
+        "pov": "June onset month. Normal/above-normal monsoon validates rural consumption recovery (FMCG, two-wheelers, agri). Deficit extends rural squeeze and caps Nifty upside in consumer names.",
+        "watch_next_week": "IMD forecast update. Kerala/Karnataka onset timing. Rainfall vs. long-period average.",
+        "confidence": "medium",
+        "sources": ["IMD seasonal outlook, seasonal pattern analysis"]
+      }
+    ],
+    "backlog": [],
+    "market_posture": "Cautious. FII selling persistent. Hold reduced leverage until FII flow turns or RBI/monsoon provides positive catalyst."
+  },
+  "config": {
+    "threads": [
+      {
+        "name": "FII Exodus — Structural Outflow",
+        "added": "2026-06-13",
+        "models": ["monetary_transmission", "financial_stability"],
+        "status": "red"
+      },
+      {
+        "name": "RBI Rate Cycle — Transmission Lag",
+        "added": "2026-06-13",
+        "models": ["monetary_transmission", "consumption_squeeze"],
+        "status": "yellow"
+      },
+      {
+        "name": "Monsoon 2026 Onset",
+        "added": "2026-06-13",
+        "models": ["consumption_squeeze", "formalization_thesis"],
+        "status": "yellow"
+      }
+    ],
+    "last_structural_review": "2026-06-13",
+    "decay_warning_at": "2026-07-11"
+  },
+  "history": {
+    "weekly_povs": [],
+    "daily_biases": []
+  }
+}
