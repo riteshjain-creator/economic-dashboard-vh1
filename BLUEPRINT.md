@@ -72,7 +72,7 @@
 │                                        │
 ├────────────────────────────────────────┤
 │                                        │
-│  ACTIVE THREATS (3)                    │
+│  ACTIVE THREADS (3)                    │
 │  🔴 US-Iran Escalation — oil risk     │
 │  🟡 RBI Jun decision — on hold likely │
 │  🟢 Monsoon — normal forecast         │
@@ -94,10 +94,10 @@
 Everything mobile has, PLUS:
 - TradingView interactive charts (Nifty, USDINR, VIX, Crude)
 - Full weekly POV with council model reasoning
-- Threat detail cards with timeline & model application
+- Thread detail cards with timeline & model application
 - Historical context (last 4 weekly POVs)
 - Indicator explanation section (what each means, how to read it)
-- Backlog / emerging threats
+- Backlog / emerging threads
 - Meta section: system health, last cron run, confidence
 
 ---
@@ -111,18 +111,18 @@ Everything mobile has, PLUS:
 
 ```
 INPUT:
-  - Active threats (from JSON config)
+  - Active threads (from JSON config)
   - Previous day's indicator snapshot
 
 PROCESS:
-  1. Web search: "[threat keyword] India today" for each active threat
+  1. Web search: "[thread keyword] India today" for each active thread
   2. Web search: "Nifty market today" for general pulse
   3. Check if any major event occurred (earnings, policy, geopolitical)
   4. Generate:
      - Bias: Bullish / Cautious / Neutral (one word)
      - 3 lines: what happened + what it means + what to watch
      - Indicator values: Nifty, VIX, USDINR, Crude (from search)
-     - Flag: any threat status change (🟢→🟡→🔴)
+     - Flag: any thread status change (🟢→🟡→🔴)
 
 OUTPUT:
   - Updates `daily` section of dashboard-data.json
@@ -142,32 +142,32 @@ FAILURE HANDLING:
 
 ```
 INPUT:
-  - Active threats + their mental model assignments
+  - Active threads + their mental model assignments
   - This week's daily updates (from JSON history)
   - Council mental models
 
 PROCESS:
-  1. For each active threat:
+  1. For each active thread:
      - Deep web search (5+ queries, credible sources)
      - Apply assigned mental models as reasoning lens
      - Form a POV: what happened this week + what it means + what's next
-     - Assess threat status (escalating/stable/de-escalating)
-  2. Scan for NEW emerging threats not currently tracked
+     - Assess thread status (escalating/stable/de-escalating)
+  2. Scan for NEW emerging threads not currently tracked
      - If found: add to backlog with brief note
   3. Generate weekly summary:
      - Overall market posture for next week
-     - One actionable "watch for" per threat
+     - One actionable "watch for" per thread
      - Confidence level per POV (high/medium/low based on source quality)
 
 OUTPUT:
   - Updates `weekly` section of dashboard-data.json
   - Archives previous week's POV to `history[]`
-  - Updates threat statuses
+  - Updates thread statuses
   - Adds any new backlog items
   - Git push
 
 FAILURE HANDLING:
-  - If search quality is poor for a threat → mark POV as "low confidence"
+  - If search quality is poor for a thread → mark POV as "low confidence"
   - Source attribution mandatory (no ungrounded claims)
 ```
 
@@ -178,17 +178,17 @@ FAILURE HANDLING:
 
 ```
 INPUT:
-  - Current active threats + their age
+  - Current active threads + their age
   - Backlog accumulated from Loop 2
   - Previous month's POV accuracy (did predictions play out?)
 
 PROCESS:
-  1. Auto-archive any threat older than 4 weeks without reconfirmation
-  2. Propose new threat list:
-     - Carry forward active threats still relevant
+  1. Auto-archive any thread older than 4 weeks without reconfirmation
+  2. Propose new thread list:
+     - Carry forward active threads still relevant
      - Promote backlog items that gained significance
-     - Suggest new threats from macro calendar (RBI policy, earnings, global)
-  3. Assign 2-3 mental models per threat
+     - Suggest new threads from macro calendar (RBI policy, earnings, global)
+  3. Assign 2-3 mental models per thread
   4. Review indicator set (anything to add/remove?)
 
 OUTPUT:
@@ -198,7 +198,7 @@ OUTPUT:
   - Git push
 
 AUTO-DECAY RULE:
-  - If no human response in 7 days → use proposed threats as-is
+  - If no human response in 7 days → use proposed threads as-is
   - If no response in 14 days → send reminder
   - System never goes >5 weeks without a structural refresh
 ```
@@ -221,10 +221,10 @@ These are permanent reasoning frameworks, not live commentary tracking.
 
 ### How Models Are Applied
 
-Each active threat gets 2-3 assigned models. Example:
+Each active thread gets 2-3 assigned models. Example:
 
 ```
-Threat: "Oil at $90+ on Iran escalation"
+Thread: "Oil at $90+ on Iran escalation"
 Models: Monetary Transmission + Consumption Squeeze
 
 Application:
@@ -307,7 +307,7 @@ Only these 5. All confirmed embeddable. No others.
   "weekly": {
     "date": "2025-06-14",
     "summary": "Oil is the variable this week...",
-    "threats": [
+    "threads": [
       {
         "name": "US-Iran Escalation",
         "status": "red",
@@ -324,7 +324,7 @@ Only these 5. All confirmed embeddable. No others.
     "market_posture": "Defensive. Reduce leveraged positions until oil clarity."
   },
   "config": {
-    "threats": [
+    "threads": [
       { "name": "US-Iran Escalation", "added": "2025-06-01", "models": ["monetary_transmission", "consumption_squeeze"], "status": "red" },
       { "name": "RBI June Decision", "added": "2025-06-01", "models": ["monetary_transmission", "financial_stability"], "status": "yellow" },
       { "name": "Monsoon 2025", "added": "2025-06-01", "models": ["consumption_squeeze", "formalization"], "status": "green" }
@@ -348,7 +348,7 @@ Only these 5. All confirmed embeddable. No others.
 | Cron doesn't run | Staleness badge on page ("⚠️ Last update: 2 days ago") | Auto-alert in chat if >36h stale |
 | Search returns garbage | Low result count / irrelevant content | Mark output as "⚠️ Low confidence" + source count shown |
 | Git push fails | Cron exit code | Retry once. If fails, alert in chat. JSON saved locally as backup |
-| Threats go stale | `decay_warning_at` field | Auto-archive after 4 weeks. Nag user at 3 weeks |
+| Threads go stale | `decay_warning_at` field | Auto-archive after 4 weeks. Nag user at 3 weeks |
 | Commentary becomes formulaic | User feedback (weekly) | Prompt refinement in Loop 2. Track if same phrases repeat |
 | GitHub Pages cache | Cache-busting query param on JSON fetch | `fetch('dashboard-data.json?t=' + Date.now())` |
 | PAT expires | Git push auth failure | Alert in chat. Document renewal steps |
@@ -387,7 +387,7 @@ Only these 5. All confirmed embeddable. No others.
 
 4. **Phase 3 — Loop 1 (Monthly)**
    - Build structural review cron
-   - First run: set June 2025 threats together
+   - First run: set June 2025 threads together
    - Auto-decay logic
 
 5. **Phase 4 — Harden**
@@ -404,7 +404,7 @@ Only these 5. All confirmed embeddable. No others.
 |-----------|-----------|------|
 | Daily | 2 min | Open page, read bias + indicators |
 | Weekly | 0 min | Page auto-updates Saturday |
-| Monthly | 10 min | Confirm/edit threat list when I propose |
+| Monthly | 10 min | Confirm/edit thread list when I propose |
 | Quarterly | 15 min | Feedback on overall model quality |
 
 **Total weekly time commitment: ~15 minutes.**
