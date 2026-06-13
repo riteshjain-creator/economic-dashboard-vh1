@@ -28,6 +28,16 @@ IF US Real Yields rising rapidly (>50bps in 2 months)
   AND India-US 10Y spread narrowing
 THEN: LIQUIDITY TIDE IS RECEDING → Reduce equity, increase debt/cash
       Target: 40-60% equity
+
+SUB-SIGNAL: EM ROTATION (added from backtest — W15/W16 gap)
+IF China CSI 300 outperforms Nifty for 3+ consecutive weeks
+  AND FII net-selling India while buying EM/China
+  AND DXY neutral (102-104 range — not driving flows, ROTATION is)
+THEN: LIQUIDITY TIDE IS ROTATING (not receding globally, just away from India)
+      Action: Reduce India equity by 10-15%; don't panic (DXY not spiking)
+      Watch for: rotation exhaustion (China valuation hits ceiling, India PE compresses to attractive)
+      Rationale: Mar 2026 — CSI 300 +5% while FII sold ₹8,000Cr/week from India. DXY was only 103 (neutral).
+      The selling wasn't "risk-off" — it was reallocation. Different from I1-recede.
 ```
 
 ### What To Do:

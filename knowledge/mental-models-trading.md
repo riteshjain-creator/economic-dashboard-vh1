@@ -181,11 +181,19 @@ When EVERYONE is already positioned bearish, there are no marginal sellers left.
 **Label:** TRADING  
 **Type:** Ride amplified moves when dealer hedging flips
 
-### Trigger Conditions (ALL must be true):
+### Trigger Conditions (ANY set must be true):
+
+**Set A (Classic Gamma Flip):**
 - GEX flips from positive to negative (dealers go from selling vol to chasing)
 - Nifty Futures OI surging (new positions being built rapidly)
 - GIFT Nifty gaps > 0.5% in direction of flip
 - VIX rising > 15% from recent low
+
+**Set B (Oil/Geopolitical Shock — added from backtest):**
+- Brent crude moves >5% intra-week (rate-of-change, NOT absolute level)
+- India VIX rises >15% from recent base (even if below 20)
+- Event is geopolitical (war, sanctions, supply disruption)
+- *Rationale: W06 Jan 2026 — Brent +5% to $66.82, VIX 13→17 (+30%), Nifty -2.1%. Absolute levels didn't hit old thresholds but rate-of-change signaled correctly.*
 
 ### Logic Chain:
 ```
