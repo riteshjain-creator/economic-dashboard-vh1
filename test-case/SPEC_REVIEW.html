@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economic Dashboard — Spec + Backtest Review</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --surface2: #21262d;
+  --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+  --green: #3fb950; --red: #f85149; --amber: #d29922; --blue: #58a6ff;
+  --purple: #bc8cff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace; font-size: 13px; line-height: 1.6; }
+a { color: var(--blue); }
+
+/* Header */
+header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; background: var(--bg); z-index: 100; }
+.header-title { font-size: 15px; font-weight: 700; }
+.header-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.approve-btn { padding: 7px 18px; border-radius: 6px; font-size: 12px; font-weight: 700; border: 1px solid var(--green); background: rgba(63,185,80,.1); color: var(--green); cursor: pointer; letter-spacing: .04em; }
+.approve-btn:hover { background: rgba(63,185,80,.2); }
+.approve-btn.approved { background: rgba(63,185,80,.3); }
+.summary-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+.chip-green { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid var(--green); }
+.chip-amber { background: rgba(210,153,34,.15); color: var(--amber); border: 1px solid var(--amber); }
+.chip-muted { background: rgba(139,148,158,.1); color: var(--muted); border: 1px solid var(--border); }
+
+/* Tabs */
+.tab-nav { display: flex; border-bottom: 1px solid var(--border); padding: 0 24px; overflow-x: auto; background: var(--bg); }
+.tab-btn { padding: 10px 18px; font-size: 12px; font-weight: 600; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+.tab-btn.active { color: var(--text); border-bottom-color: var(--blue); }
+.tab-btn:hover { color: var(--text); }
+.tab-badge { background: var(--surface2); color: var(--muted); font-size: 10px; border-radius: 8px; padding: 1px 6px; margin-left: 5px; }
+
+/* Content */
+.tab-pane { display: none; padding: 24px; max-width: 960px; margin: 0 auto; }
+.tab-pane.active { display: block; }
+
+/* Spec section */
+.spec-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+.spec-block-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.loop-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: .05em; }
+.tag-l1 { background: rgba(88,166,255,.15); color: var(--blue); }
+.tag-l2 { background: rgba(188,140,255,.15); color: var(--purple); }
+.tag-l3 { background: rgba(63,185,80,.15); color: var(--green); }
+.tag-l4 { background: rgba(210,153,34,.15); color: var(--amber); }
+.tag-l5 { background: rgba(248,81,73,.15); color: var(--red); }
+.tag-l6 { background: rgba(139,148,158,.15); color: var(--muted); }
+.tag-explain { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid var(--green); }
+.tag-bt { background: rgba(210,153,34,.15); color: var(--amber); }
+
+/* Criteria rows */
+.criterion { display: grid; grid-template-columns: 120px 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--surface2); font-size: 12px; }
+.criterion:last-child { border-bottom: none; }
+.criterion-label { font-weight: 700; font-size: 11px; color: var(--muted); padding-top: 2px; }
+.criterion-pass { color: var(--text); }
+.criterion-fail { color: var(--red); font-size: 11px; margin-top: 3px; }
+.new-tag { font-size: 10px; font-weight: 700; background: rgba(63,185,80,.15); color: var(--green); border: 1px solid var(--green); border-radius: 4px; padding: 1px 6px; margin-left: 6px; }
+
+/* Rubric table */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 12px; }
+th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; background: var(--surface2); }
+.pass-cell { color: var(--green); font-weight: 600; }
+.fail-cell { color: var(--red); font-size: 11px; }
+
+/* Info/warn boxes */
+.info-box { background: rgba(88,166,255,.07); border: 1px solid rgba(88,166,255,.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.info-box strong { color: var(--blue); }
+.warn-box { background: rgba(210,153,34,.07); border: 1px solid rgba(210,153,34,.25); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; font-size: 12px; line-height: 1.7; color: var(--muted); }
+.warn-box strong { color: var(--amber); }
+
+/* Event cards */
+.event-grid { display: grid; gap: 10px; }
+.event-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.event-card.accepted { border-color: rgba(63,185,80,.4); }
+.event-card.rejected { border-color: rgba(248,81,73,.3); opacity: .6; }
+.event-card.modified { border-color: rgba(88,166,255,.4); }
+.event-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.event-week { font-size: 11px; font-weight: 700; color: var(--muted); flex-shrink: 0; width: 78px; }
+.event-title { font-weight: 700; font-size: 13px; flex: 1; }
+.event-decision-chip { font-size: 10px; font-weight: 700; border-radius: 8px; padding: 2px 8px; border: 1px solid; flex-shrink: 0; }
+.event-decision-chip.accept { color: var(--green); border-color: var(--green); background: rgba(63,185,80,.1); }
+.event-decision-chip.reject { color: var(--red); border-color: var(--red); background: rgba(248,81,73,.1); }
+.event-decision-chip.modify { color: var(--blue); border-color: var(--blue); background: rgba(88,166,255,.1); }
+.event-decision-chip.pending { color: var(--muted); border-color: var(--border); }
+.event-body { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+.event-body strong { color: var(--text); }
+.event-threads { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+.thread-pill { font-size: 10px; padding: 2px 7px; border-radius: 8px; background: var(--surface2); color: var(--muted); }
+.event-source { font-size: 10px; color: var(--muted); font-style: italic; }
+.event-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding-top: 8px; border-top: 1px solid var(--border); margin-top: 6px; }
+.btn { padding: 4px 12px; border-radius: 5px; font-size: 11px; font-weight: 700; border: 1px solid; cursor: pointer; transition: opacity .15s; }
+.btn:hover { opacity: .8; }
+.btn-accept { color: var(--green); border-color: var(--green); background: rgba(63,185,80,.1); }
+.btn-reject { color: var(--red); border-color: var(--red); background: rgba(248,81,73,.1); }
+.btn-modify { color: var(--blue); border-color: var(--blue); background: rgba(88,166,255,.1); }
+.btn.active { opacity: 1; }
+.btn-accept.active { background: rgba(63,185,80,.3); }
+.btn-reject.active { background: rgba(248,81,73,.3); }
+.btn-modify.active { background: rgba(88,166,255,.3); }
+.notes-field { flex: 1; min-width: 180px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-size: 11px; padding: 4px 8px; font-family: inherit; }
+
+/* Category badges */
+.cat-india { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.3); }
+.cat-global { background: rgba(88,166,255,.12); color: var(--blue); border: 1px solid rgba(88,166,255,.3); }
+.cat-policy { background: rgba(188,140,255,.12); color: var(--purple); border: 1px solid rgba(188,140,255,.3); }
+.cat-risk { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.3); }
+.cat-sector { background: rgba(210,153,34,.12); color: var(--amber); border: 1px solid rgba(210,153,34,.3); }
+.cat-badge { font-size: 10px; padding: 1px 6px; border-radius: 4px; font-weight: 700; }
+
+/* Export */
+.export-bar { padding: 14px 24px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.btn-export { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
+.btn-export:hover { border-color: var(--blue); }
+
+/* Modal */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; max-width: 680px; width: 90%; display: flex; flex-direction: column; gap: 12px; max-height: 80vh; }
+.modal h3 { font-size: 14px; }
+.modal textarea { min-height: 280px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-size: 11px; padding: 10px; border-radius: 6px; font-family: monospace; resize: none; }
+.modal-btns { display: flex; gap: 8px; }
+pre { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 11px; overflow-x: auto; color: var(--text); white-space: pre; margin: 6px 0; }
+.kw { color: var(--blue); } .cm { color: var(--muted); } .st { color: var(--green); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">Economic Dashboard — Spec + Backtest Review</div>
+    <div class="header-sub">2026-06-13 · Loop spec with Explainability · 26 backtest events · Approve before execution</div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+    <div class="summary-bar">
+      <span class="chip chip-muted" id="cnt-spec">Spec: Pending</span>
+      <span class="chip chip-muted" id="cnt-events">Events: 0/26</span>
+    </div>
+    <button class="approve-btn" id="approve-spec-btn" onclick="approveSpec()">Approve Spec</button>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="spec">Loop Spec</button>
+  <button class="tab-btn" data-tab="explainability">Explainability Metric</button>
+  <button class="tab-btn" data-tab="backtest">Backtest Events <span class="tab-badge">26</span></button>
+  <button class="tab-btn" data-tab="summary">Summary</button>
+</nav>
+
+<!-- ══════════ TAB 1: LOOP SPEC ══════════ -->
+<div class="tab-pane active" id="tab-spec">
+  <div class="info-box">
+    <strong>Status:</strong> This is the confirmed spec for Loop A (L1-L6 design validation) + Loop B (backtest). The Explainability metric has been added to L1 and L2 per your instruction. Review both loops, then click <strong>Approve Spec</strong> before any execution runs.
+  </div>
+
+  <!-- Loop A -->
+  <div class="spec-block">
+    <div class="spec-block-title">Loop A — L1-L6 Design Validation</div>
+    <div class="criterion">
+      <div class="criterion-label">Objective</div>
+      <div class="criterion-pass">The dashboard can run in production and produce a trustworthy, <em>explainable</em> daily signal — every component maps to a live data source, every model has threshold-precise rules that produce traceable rationale, every thread has an observable invalidation condition, and the HTML renders the full signal layer.</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">Pass threshold</div>
+      <div class="criterion-pass">All 7 criteria green simultaneously (6 loops + Explainability across L1/L2)</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">Boundary</div>
+      <div class="criterion-pass">3 iterations (find gap → fix → re-check)</div>
+    </div>
+  </div>
+
+  <!-- Criteria table -->
+  <div class="spec-block">
+    <div class="spec-block-title">Metric — Pass/Fail Criteria</div>
+    <table>
+      <tr><th style="width:90px">Loop</th><th>Pass condition</th><th>Fail condition</th></tr>
+      <tr>
+        <td><span class="loop-tag tag-l1">L1</span></td>
+        <td class="pass-cell">13 tiles present · _trend() fires on ≥4 chart series · TRENDS block in call_claude() user prompt</td>
+        <td class="fail-cell">Any tile missing · TRENDS absent · _trend() not called</td>
+      </tr>
+      <tr>
+        <td><span class="loop-tag tag-l2">L2</span></td>
+        <td class="pass-cell">T1–T4 + I1–I4 all present with numeric thresholds · each model maps to a tracked seed or indicator · I3 IIP gap documented (known, not a fail)</td>
+        <td class="fail-cell">Any model vague ("high PCR") · model references unavailable data without documentation</td>
+      </tr>
+      <tr>
+        <td><span class="loop-tag tag-l3">L3</span></td>
+        <td class="pass-cell">Exactly 5 experts · each expert has ≥1 data trigger · synthesis instruction forces conflict naming (not averaging)</td>
+        <td class="fail-cell">6 experts (Rajan present) · any expert has zero observable triggers</td>
+      </tr>
+      <tr>
+        <td><span class="loop-tag tag-l4">L4</span></td>
+        <td class="pass-cell">5/5 RSS feeds return ≥ min_items on live test</td>
+        <td class="fail-cell">Any feed returns 0 items or timeout</td>
+      </tr>
+      <tr>
+        <td><span class="loop-tag tag-l5">L5</span></td>
+        <td class="pass-cell">4 Active + 1 Watch · Fed Pivot Active · China EM Active · 12 seeds · all threads have Conviction + Prediction + Invalidated if</td>
+        <td class="fail-cell">Wrong status on any thread · any field missing · seeds ≠ 12</td>
+      </tr>
+      <tr>
+        <td><span class="loop-tag tag-l6">L6</span></td>
+        <td class="pass-cell">P1–P7 all in HTML · P8 absent · sparklines on Nifty+VIX tiles</td>
+        <td class="fail-cell">Any P-item missing · P8 (chart swap) present</td>
+      </tr>
+      <tr style="background:rgba(63,185,80,.04)">
+        <td><span class="loop-tag tag-explain">EXPLAIN</span> <span class="new-tag">NEW</span></td>
+        <td class="pass-cell">See Explainability tab for full rubric — 4 structural checks across L1+L2</td>
+        <td class="fail-cell">Any of the 4 checks fails</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Loop B -->
+  <div class="spec-block">
+    <div class="spec-block-title">Loop B — Backtest <span class="loop-tag tag-bt">deterministic · 1 run</span></div>
+    <div class="criterion">
+      <div class="criterion-label">Objective</div>
+      <div class="criterion-pass">The council model's regime calls directionally match actual Nifty weekly returns > 65% of the time across 26 weeks (Dec 2025 – Jun 2026), validating the expert framework before daily production use.</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">Metric 1</div>
+      <div class="criterion-pass"><strong>Regime accuracy</strong> — for each backtest week, compare india_regime call to actual Nifty 5-day return: Risk-On correct if return ≥ 0%; Risk-Off correct if return ≤ −1.5%; Neutral correct if |return| ≤ 1.5%. <strong>Pass: accuracy > 65%.</strong></div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">Metric 2</div>
+      <div class="criterion-pass"><strong>Invalidation hit rate</strong> — % of weeks where model flags invalidation_risk high/medium AND a thread-invalidating event is present in that week's digest entry. <strong>Pass: hit rate > 50%.</strong></div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">On FAIL</div>
+      <div class="criterion-pass">Surface top-3 missed weeks with rationale → propose targeted council.md edits → re-run. Max 2 fix iterations.</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">Prerequisite</div>
+      <div class="criterion-pass">≥12 approved events from the Backtest Events tab seeded into history-digest.jsonl before backtest.py runs.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TAB 2: EXPLAINABILITY ══════════ -->
+<div class="tab-pane" id="tab-explainability">
+  <div class="info-box">
+    <strong>What Explainability means here:</strong> The dashboard doesn't just report WHAT moved — it explains WHY. A PM reading the POV should be able to trace every regime call to a specific causal chain (e.g. "DXY broke 101 → I1 model fired → FII inflow signal → Fed Pivot thread Heating"). These 4 structural checks verify the pipeline enables that causal chain — without needing to run the Claude API.
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-block-title">Explainability Checks — L1 (Data Pipeline) <span class="loop-tag tag-l1">L1</span></div>
+    <div class="criterion">
+      <div class="criterion-label">E1-L1a</div>
+      <div class="criterion-pass">TRENDS block in call_claude() prompt contains directional data for <strong>≥4 series</strong> (Nifty, India VIX, Brent, US 10Y). Each series provides a 90-day directional signal that Claude can use to explain indicator moves.</div>
+      <div class="criterion-fail">Fail if: fewer than 4 series in TRENDS block, or all series show "flat" due to chart_data being empty.</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">E1-L1b</div>
+      <div class="criterion-pass">Historical context block fires when <code>history-digest.jsonl</code> has ≥1 entry. The <code>load_digest_context()</code> function returns a non-empty string, and the digest_block variable is injected into the user prompt.</div>
+      <div class="criterion-fail">Fail if: digest block is always empty regardless of history-digest.jsonl state (code path never fires).</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">E1-L1c</div>
+      <div class="criterion-pass">Synthesis instruction in council.md explicitly mandates causal language: contains "explain WHY" AND "causally" AND "name the specific event that inflected each 90-day trend" (when historical context present).</div>
+      <div class="criterion-fail">Fail if: instruction only says "explain direction" without causal connector language.</div>
+    </div>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-block-title">Explainability Checks — L2 (Model Traceability) <span class="loop-tag tag-l2">L2</span></div>
+    <div class="criterion">
+      <div class="criterion-label">E2-L2a</div>
+      <div class="criterion-pass">Every T/I model (8 total) has <strong>≥1 numeric threshold</strong> in its definition. Model signals are threshold-labeled, not vague: "PCR &lt; 0.70" not "low PCR"; "DXY > 104" not "high DXY".</div>
+      <div class="criterion-fail">Fail if: any model uses qualitative language without a number anchor.</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-label">E2-L2b</div>
+      <div class="criterion-pass">Each investment model (I1–I4) is <strong>labeled with its thread</strong> in the prompt (e.g. "I1 DXY Regime *(Thread: Fed Pivot)*"). When the model fires, Claude can directly name which thread it affects and how.</div>
+      <div class="criterion-fail">Fail if: models are unlabeled or thread mapping is absent from prompt.</div>
+    </div>
+
+    <div style="margin-top:14px">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><strong style="color:var(--text)">Explainability rubric anchors</strong> — how to score each check:</div>
+      <table>
+        <tr><th>Check</th><th>Pass (all true)</th><th>Fail (any false)</th></tr>
+        <tr><td>E1-L1a</td><td class="pass-cell">grep "TRENDS" in prompt; count series lines ≥ 4</td><td class="fail-cell">Fewer than 4 series OR chart_data always empty</td></tr>
+        <tr><td>E1-L1b</td><td class="pass-cell">load_digest_context() called; digest_block injected when non-empty</td><td class="fail-cell">Function exists but never called, or block not in prompt string</td></tr>
+        <tr><td>E1-L1c</td><td class="pass-cell">council.md contains "explain WHY" + "causally" + "specific event"</td><td class="fail-cell">Any keyword missing from synthesis paragraph</td></tr>
+        <tr><td>E2-L2a</td><td class="pass-cell">All 8 T/I models have at least one "< N" or "> N" numeric expression</td><td class="fail-cell">Any model line has no number</td></tr>
+        <tr><td>E2-L2b</td><td class="pass-cell">All I1–I4 labels include "(Thread: ...)" annotation in prompt</td><td class="fail-cell">Any Ix model missing thread label</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>Known gap — not a fail:</strong> I3 (Capex model) references IIP Capital Goods which has no live API in v1. This is documented in knowledge/completeness-gaps.md and treated as a known gap — I3 passes L2 as long as the model is threshold-precise and the gap is documented. The model uses budget execution seed + CMIE seed as proxies.
+  </div>
+</div>
+
+<!-- ══════════ TAB 3: BACKTEST EVENTS ══════════ -->
+<div class="tab-pane" id="tab-backtest">
+  <div class="info-box">
+    <strong>Source:</strong> 26 weekly events curated from web search (FRED, ET, Business Standard, CNBC, JPMorgan, Fox Business, NiftyPulse) covering Dec 2025 – Jun 2026. Accepted events will be seeded directly into <code>history-digest.jsonl</code> — no URL scraping needed for historical backfill. For ongoing weeks, use <code>backfill_digest.py</code> + <code>config/digest-urls.txt</code>.
+  </div>
+  <div class="warn-box">
+    <strong>Review instruction:</strong> Accept events that are macro-relevant to our 5 threads. Reject one-off corporate/sector stories. Modify if the event description needs updating. You need ≥12 Accepted events to run the backtest.
+  </div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:14px">Accepted: <strong id="evt-accept-cnt" style="color:var(--green)">0</strong> / 26 &nbsp;·&nbsp; Rejected: <strong id="evt-reject-cnt" style="color:var(--red)">0</strong> &nbsp;·&nbsp; Minimum needed: 12</div>
+
+  <div class="event-grid" id="event-grid"></div>
+</div>
+
+<!-- ══════════ TAB 4: SUMMARY ══════════ -->
+<div class="tab-pane" id="tab-summary">
+  <div class="spec-block">
+    <div class="spec-block-title">Approval Status</div>
+    <div id="summary-status" style="font-size:13px;color:var(--muted);padding:8px 0">Review spec and events, then approve to unlock execution.</div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-title">Execution Order (once approved)</div>
+    <pre><span class="cm"># Step 1: Seed approved events into history-digest.jsonl</span>
+<span class="cm"># (auto-generated from Export when you approve)</span>
+python3 seed_digest.py  <span class="cm"># writes approved events to history-digest.jsonl</span>
+
+<span class="cm"># Step 2: Run L1-L6 validation loop</span>
+python3 -m py_compile generate.py  <span class="cm"># syntax check</span>
+python generate.py --test           <span class="cm"># MCP data health check (all 15 sources)</span>
+<span class="cm"># then verify each L1-L6 + Explainability criterion manually</span>
+
+<span class="cm"># Step 3: Run backtest</span>
+export FRED_API_KEY=&lt;key&gt;
+export ANTHROPIC_API_KEY=&lt;key&gt;
+python backtest.py
+open backtest-report.html
+
+<span class="cm"># Step 4: If backtest passes → run dashboard</span>
+python generate.py
+open index.html</pre>
+  </div>
+  <div id="summary-events-table"></div>
+</div>
+
+<!-- Export bar -->
+<div class="export-bar">
+  <button class="btn-export" onclick="exportAll()">Export approved events as JSON + seed script</button>
+  <span style="font-size:11px;color:var(--muted)">Generates seed_digest.py ready to run</span>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="export-modal">
+  <div class="modal">
+    <h3>Export — seed_digest.py</h3>
+    <textarea id="export-text" readonly></textarea>
+    <div class="modal-btns">
+      <button class="btn btn-accept" onclick="copyExport()">Copy to Clipboard</button>
+      <button class="btn" style="border-color:var(--border);color:var(--muted)" onclick="document.getElementById('export-modal').classList.remove('open')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Event data ──────────────────────────────────────────────────────────────
+const EVENTS = [
+  { id:"W01", week:"2025-12-06", cat:"policy",  title:"RBI cuts 25bps to 5.75% — 4th consecutive cut",       india_equity:"Nifty rallied 1.2% on rate cut; banking sector led gains", global_macro:"DXY stable at 105; US 10Y at 4.35%", policy:"RBI cut repo to 5.75%; real policy rate ~1.2% — approaching neutral", sector:"Banking and NBFCs outperformed on cut", risk_event:null, threads:["INR Structural Pressure","India Capex Cycle"], source:"RBI MPC minutes Dec 2025" },
+  { id:"W02", week:"2025-12-13", cat:"global",  title:"Fed holds 3.5-3.75%; signals pause in cutting cycle", india_equity:"FII sold ₹2,800Cr — risk-off on Fed pause signal", global_macro:"Fed holds; PCE inflation at 2.4%; Powell hawkish tone. DXY strengthened to 106", policy:null, sector:null, risk_event:"Fed pause signal triggered EM selling; DXY above 104 threshold", threads:["Fed Pivot Timing","INR Structural Pressure"], source:"FOMC Dec 2025 minutes" },
+  { id:"W03", week:"2025-12-20", cat:"risk",    title:"Year-end FII selling; Brent $72 on Iran uncertainty",  india_equity:"FII net sold ₹4,100Cr in week; Nifty down 1.8%; A/D ratio <0.45", global_macro:"Brent climbed to $72 on US-Iran friction. DXY 106", policy:null, sector:"IT and pharma outperformed as defensives", risk_event:"Year-end FII exodus; breadth divergence — Nifty held by top-10 stocks", threads:["Fed Pivot Timing","Oil Supply Shock"], source:"ET Markets, Dec 2025" },
+  { id:"W04", week:"2025-12-27", cat:"india",   title:"India Q2 FY26 GDP confirmed at 8.2%; capex budget on track", india_equity:"Nifty flat on holiday week; FY26 full-year estimate raised to 7.6%", global_macro:"Thin holiday volumes; DXY eased to 104", policy:"Q2 FY26 GDP 8.2% — above RBI estimate of 7%; capex execution 58% by H1", sector:"Capital goods outperformed on capex data", risk_event:null, threads:["India Capex Cycle"], source:"Business Standard, MoSPI" },
+  { id:"W05", week:"2026-01-03", cat:"india",   title:"New year: Nifty at 24,200; FII selling persists from Jan 1", india_equity:"FII net sellers from day 1 of 2026; DII buying offset 60% of outflow", global_macro:"DXY at 104.5; US 10Y at 4.4%; risk-off globally", policy:null, sector:null, risk_event:"Cumulative FII selling Jan–Apr 2026 reaches ₹2.1 lakh crore", threads:["Fed Pivot Timing","China Recovery & EM Rotation"], source:"NiftyPulse, Upstox" },
+  { id:"W06", week:"2026-01-10", cat:"risk",    title:"Brent spikes to $66.82 on US-Iran escalation fears",   india_equity:"India VIX rose to 17; Nifty down 2.1% on oil price shock", global_macro:"Brent hit $66.82 — 5-month high. US-Iran military posturing escalated", policy:null, sector:"Oil & gas and OMCs impacted; CAD widening concern", risk_event:"US-Iran conflict risk elevated; India import bill concern — Oil Supply Shock thesis heating", threads:["Oil Supply Shock","INR Structural Pressure"], source:"Wikipedia Oil Chronology 2026" },
+  { id:"W07", week:"2026-01-17", cat:"risk",    title:"Brent hits $70.69 — highest since Aug 2025; Iran uncertainty", india_equity:"Nifty fell 1.5%; FII sold ₹3,200Cr; breadth weak", global_macro:"Brent $70.69 end of week. USD/INR pushed toward 86", policy:null, sector:"Defence stocks outperformed; energy sector volatile", risk_event:"Oil above $70 threshold — CAD stress materialising; INR pressure thesis active", threads:["Oil Supply Shock","INR Structural Pressure"], source:"Wikipedia Oil Chronology 2026" },
+  { id:"W08", week:"2026-01-24", cat:"global",  title:"Fed holds Jan 28; 2 dissents want cut — division emerges", india_equity:"Nifty flat; FII marginally positive on dovish dissent news", global_macro:"Fed holds 3.5-3.75%. 2 FOMC members dissented — wanting 25bps cut. DXY softened to 103", policy:null, sector:null, risk_event:null, threads:["Fed Pivot Timing"], source:"JPMorgan, Robinhood prediction markets" },
+  { id:"W09", week:"2026-01-31", cat:"india",   title:"Brent ends Jan at $70.69; India CAD widening risk flagged", india_equity:"Nifty ended Jan down 3.2% for the month; FII sold ₹18,000Cr in January", global_macro:"DXY at 103; US 10Y 4.3%; Fed pause narrative dominant", policy:"RBI MPC upcoming Feb — market expects hold after rate cut cycle pause", sector:null, risk_event:"India CAD widening — oil above $70 + FII selling = twin deficit concern", threads:["INR Structural Pressure","Oil Supply Shock"], source:"ET Markets, Jan 2026 data" },
+  { id:"W10", week:"2026-02-07", cat:"policy",  title:"RBI holds at 5.25% — first hold after 5-cut cycle; US-Iran talks lower oil", india_equity:"Nifty up 0.8% on hold (expected); real policy rate 1.45% — neutral range", global_macro:"Brent fell to $67.55 on US-Iran talks progress. DXY 103.5", policy:"RBI holds repo at 5.25% — neutral stance. Real rate = 6.25-4.8 = 1.45% (neutral zone)", sector:null, risk_event:null, threads:["INR Structural Pressure","Fed Pivot Timing"], source:"Business Standard, RBI Feb 2026" },
+  { id:"W11", week:"2026-02-14", cat:"global",  title:"IEA cuts demand forecast; Brent falls 3% to $65 — oil risk easing", india_equity:"India VIX fell to 14; Nifty stabilised; FII outflows moderating", global_macro:"Brent $65 on IEA forecast + US inventory build + Iran talks progress. DXY 102", policy:null, sector:"Energy sector weakness; IT and pharma bid as defensives", risk_event:"Oil supply shock risk easing — Brent back below $70 threshold", threads:["Oil Supply Shock","INR Structural Pressure"], source:"Wikipedia Oil Chronology 2026" },
+  { id:"W12", week:"2026-02-21", cat:"india",   title:"India CPI moderates; real policy rate comfortably neutral",  india_equity:"Nifty recovering; FII selling pace slowing; DII SIP inflows hit new high", global_macro:"DXY 102; US 10Y 4.25%; EM sentiment improving marginally", policy:"India CPI prints moderate; core CPI ~4.8%; real rate well within 1-1.5% neutral band", sector:null, risk_event:null, threads:["INR Structural Pressure","India Capex Cycle"], source:"Business Standard CPI data" },
+  { id:"W13", week:"2026-02-28", cat:"india",   title:"Q3 FY26 GDP at 7.8% — first release under new 2022-23 base year", india_equity:"Nifty rallied 2.3% on GDP beat; FII turned buyers for 3 days", global_macro:"DXY 101; positive EM flows on India data surprise", policy:"Q3 FY26 GDP 7.8% (new base year); Q2 revised to 8.2%. MoSPI released Feb 27 2026", sector:"Capital goods and infra outperformed — capex thesis supported", risk_event:null, threads:["India Capex Cycle","Fed Pivot Timing"], source:"MoSPI, Business Standard Feb 28 2026" },
+  { id:"W14", week:"2026-03-07", cat:"global",  title:"Fed holds Mar 17-18; FOMC minutes cautious on cuts", india_equity:"Nifty flat; FII net neutral for week; market awaiting clarity", global_macro:"Fed holds 3.5-3.75%. FOMC minutes: concerned about sticky inflation. DXY 102", policy:null, sector:null, risk_event:"Fed 'higher for longer' risk; 2 dissents now for cut not enough to shift majority", threads:["Fed Pivot Timing"], source:"Federal Reserve FOMC minutes Mar 2026" },
+  { id:"W15", week:"2026-03-14", cat:"india",   title:"FII selling ₹8,000Cr weekly — 3rd consecutive month net-sell", india_equity:"Nifty down 1.1%; breadth weak — A/D 650:900; index held by Reliance and HDFC", global_macro:"DXY 103; rising dollar pressuring EM. China CSI 300 up 2.5% on stimulus bets", policy:null, sector:"IT stable; banking weak on NIM pressure concerns", risk_event:"Breadth divergence flag — index positive, A/D ratio <0.70 threshold", threads:["China Recovery & EM Rotation","Fed Pivot Timing"], source:"NiftyPulse, Stockezee FII data" },
+  { id:"W16", week:"2026-03-21", cat:"global",  title:"China CSI 300 gaining on PBOC stimulus bets — EM rotation risk",  india_equity:"India underperformed MSCI EM for 3rd week; FII allocation shifting toward China", global_macro:"CSI 300 up 5% month-to-date on AI + stimulus narrative. China PMI 51.2", policy:null, sector:null, risk_event:"EM rotation risk materialising — CSI 300 gaining while India FII net-sell", threads:["China Recovery & EM Rotation"], source:"FXEmpire, ING Think Asia 2026" },
+  { id:"W17", week:"2026-03-28", cat:"india",   title:"Fiscal year end: India capex execution 62% of annual budget target", india_equity:"End of FY26; Nifty down ~4% for the year from Jan peak; govt capex execution strong", global_macro:"DXY 103; Brent $70; US-Iran tensions back on", policy:"Govt capex execution 62% by Sep — I3 model threshold met. PLI disbursements accelerating", sector:"Capital goods, infra, defence outperformed vs index in FY26", risk_event:null, threads:["India Capex Cycle"], source:"Business Standard budget data" },
+  { id:"W18", week:"2026-04-04", cat:"risk",    title:"RBI holds Apr 8 — West Asia crisis cited as inflation risk", india_equity:"Nifty fell 2.2% on RBI hold + geopolitical risk; FII sold ₹4,800Cr", global_macro:"Brent approaching $80 on US-Iran escalation. DXY 104", policy:"RBI holds 5.25% unanimously — West Asia crisis cited; neutral stance maintained", sector:"Oil stocks and OMCs impacted; aviation sector weak", risk_event:"US-Iran military exchanges resumed; Brent above $75; oil supply shock thread heating", threads:["Oil Supply Shock","INR Structural Pressure"], source:"NewsonAir Apr 8 2026, FXEmpire" },
+  { id:"W19", week:"2026-04-11", cat:"risk",    title:"US-Iran strikes begin; Brent above $85; India VIX spikes to 22", india_equity:"Nifty fell 3.1% — worst week since Oct 2024; VIX 22; A/D ratio 480:1020 extreme", global_macro:"US launched fresh strikes on Iran — Brent spiked. Strait of Hormuz closure risk", policy:null, sector:"Energy sector volatile; FMCG and IT outperformed as defensives", risk_event:"EXTREME risk event — Brent above $85 threshold; India VIX>20 + A/D collapse = Burry extreme signal", threads:["Oil Supply Shock","INR Structural Pressure"], source:"Groww Digest Jun 10 2026, Wikipedia Oil 2026" },
+  { id:"W20", week:"2026-04-18", cat:"india",   title:"FII flows turn net-positive for first time in 3 months",        india_equity:"FII net buyer ₹2,100Cr; Nifty recovered 2.4% from lows; VIX fell to 17", global_macro:"DXY softened to 102 on Fed-pivot speculation. US 10Y 4.3%", policy:null, sector:"Banking and NBFCs led recovery on FII inflows", risk_event:null, threads:["Fed Pivot Timing","China Recovery & EM Rotation"], source:"Upstox FII analysis, NiftyPulse Apr 2026" },
+  { id:"W21", week:"2026-04-25", cat:"global",  title:"Fed holds Apr 29 — divided FOMC 11-1; Powell lame duck", india_equity:"Nifty up 1.3%; positive on DXY weakening; FII 2nd consecutive net-buy week", global_macro:"Fed holds 11-1 (dramatic division). Powell confirms serving as governor post-chair term. DXY 101", policy:"Kevin Warsh Senate Banking Committee vote advanced — leadership transition imminent", sector:null, risk_event:"Fed leadership uncertainty — Warsh more hawkish than Powell; market pricing in policy risk", threads:["Fed Pivot Timing"], source:"CNBC Apr 29 2026, Fox Business" },
+  { id:"W22", week:"2026-05-02", cat:"global",  title:"Brent at $92 — peak of Iran supply shock; India CAD stress", india_equity:"Nifty volatile; oil-sensitive sectors weak; gold hit all-time high", global_macro:"Brent at $92 — near $95 invalidation threshold for Oil Supply Shock thesis. DXY 101", policy:null, sector:"Gold miners outperformed. Aviation stocks fell on jet fuel costs", risk_event:"Brent near $95 threshold — Oil Supply Shock thesis close to invalidation condition", threads:["Oil Supply Shock","INR Structural Pressure"], source:"Wikipedia Oil 2026, Trading Economics" },
+  { id:"W23", week:"2026-05-09", cat:"india",   title:"Q4 FY26 GDP expected strong; India FY26 full year ~7.6%",      india_equity:"Market anticipating GDP beat; FII 3rd week net-buy; Nifty YTD flat", global_macro:"DXY 100.5; Fed cut probability rising to 60% by year-end; EM risk-on improving", policy:"Q4 FY26 GDP to be released May 29; estimates ~7.3-7.4%; full year 7.6%", sector:"Capex and infrastructure re-rated on growth visibility", risk_event:null, threads:["India Capex Cycle","Fed Pivot Timing"], source:"PSUConnect, BusinessToday" },
+  { id:"W24", week:"2026-05-16", cat:"global",  title:"US-Iran peace talks — Brent falls from $92 to $87; DXY 100", india_equity:"Nifty up 2.1% on oil price relief; FII 4th consecutive net-buy week", global_macro:"Trump announced Iran peace framework — Brent fell sharply to $87. DXY 100.07", policy:null, sector:"OMCs rallied; aviation sector recovery; INR strengthened to 85.4", risk_event:"Oil Supply Shock thesis cooling — Brent below $90 and falling", threads:["Oil Supply Shock","INR Structural Pressure","Fed Pivot Timing"], source:"Wikipedia Oil 2026, Yahoo Finance DXY" },
+  { id:"W25", week:"2026-05-30", cat:"india",   title:"India GDP FY26 confirmed at 7.6%; IMF raises India forecast",   india_equity:"Nifty rallied 3.2% on GDP beat + peace deal + FII buying; India VIX 13.5", global_macro:"DXY 100; Brent $87; 5-force tailwind for Nifty per NiftyPulse analysis", policy:"Full year FY26 GDP 7.6% (MoSPI May 29). IMF revised forecast to 7.3%. India $4T by FY27", sector:"Broad-based rally; capex and banking led", risk_event:"India VIX below 13 with Nifty rally — watch for complacency zone (Marks)", threads:["India Capex Cycle","Fed Pivot Timing"], source:"PSUConnect GDP data, NiftyPulse May 2026" },
+  { id:"W26", week:"2026-06-06", cat:"policy",  title:"RBI holds Jun 3-5; GDP 7.8% confirmed for June quarter",        india_equity:"Nifty held near highs; regime Risk-On; FII net buy 5th week", global_macro:"DXY 100; Brent $87 and falling; US-Iran peace deal advancing", policy:"RBI holds 5.25% neutral — West Asia situation improving. GDP 7.8% announced same week", sector:null, risk_event:"DXY broke below 101 threshold — I1 model FII inflow signal fires; Fed Pivot thesis prediction approaching", threads:["Fed Pivot Timing","INR Structural Pressure","India Capex Cycle"], source:"Groww Digest Jun 5 2026, NewsonAir" },
+];
+
+// ── State ────────────────────────────────────────────────────────────────────
+function getState() {
+  const s = localStorage.getItem('spec-review-v1');
+  return s ? JSON.parse(s) : { specApproved: false, decisions: {}, notes: {} };
+}
+function saveState(st) { localStorage.setItem('spec-review-v1', JSON.stringify(st)); }
+
+function approveSpec() {
+  const st = getState();
+  st.specApproved = !st.specApproved;
+  saveState(st);
+  renderAll();
+}
+
+function decide(id, d) {
+  const st = getState();
+  st.decisions[id] = st.decisions[id] === d ? 'pending' : d;
+  saveState(st);
+  renderAll();
+}
+
+function saveNotes(id) {
+  const st = getState();
+  st.notes[id] = document.getElementById('notes-' + id).value;
+  saveState(st);
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function renderAll() {
+  const st = getState();
+
+  // Spec approve button
+  const btn = document.getElementById('approve-spec-btn');
+  btn.textContent = st.specApproved ? '✓ Spec Approved' : 'Approve Spec';
+  btn.classList.toggle('approved', st.specApproved);
+  document.getElementById('cnt-spec').textContent = 'Spec: ' + (st.specApproved ? 'Approved' : 'Pending');
+  document.getElementById('cnt-spec').className = 'chip ' + (st.specApproved ? 'chip-green' : 'chip-muted');
+
+  // Events
+  let accepted = 0, rejected = 0;
+  EVENTS.forEach(ev => {
+    const d = st.decisions[ev.id] || 'pending';
+    if (d === 'accept') accepted++;
+    if (d === 'reject') rejected++;
+    const card = document.getElementById('card-' + ev.id);
+    if (card) {
+      card.className = 'event-card ' + (d !== 'pending' ? d : '');
+      const chip = document.getElementById('chip-' + ev.id);
+      if (chip) { chip.textContent = d.charAt(0).toUpperCase() + d.slice(1); chip.className = 'event-decision-chip ' + d; }
+      ['accept','reject','modify'].forEach(b => {
+        const el = document.querySelector(`#card-${ev.id} .btn-${b}`);
+        if (el) el.classList.toggle('active', d === b);
+      });
+      const nf = document.getElementById('notes-' + ev.id);
+      if (nf && st.notes[ev.id]) nf.value = st.notes[ev.id];
+    }
+  });
+  document.getElementById('evt-accept-cnt').textContent = accepted;
+  document.getElementById('evt-reject-cnt').textContent = rejected;
+  document.getElementById('cnt-events').textContent = `Events: ${accepted}/26`;
+  document.getElementById('cnt-events').className = 'chip ' + (accepted >= 12 ? 'chip-green' : 'chip-amber');
+
+  // Summary
+  const ready = st.specApproved && accepted >= 12;
+  document.getElementById('summary-status').innerHTML = ready
+    ? `<span style="color:var(--green)">✓ Ready to execute.</span> Spec approved. ${accepted}/26 events accepted (≥12 ✓). Export the seed script and run.`
+    : `<span style="color:var(--amber)">○ Not ready.</span> ${st.specApproved ? 'Spec approved.' : 'Spec not approved.'} ${accepted}/26 events accepted (need ≥12).`;
+}
+
+// ── Build event cards ─────────────────────────────────────────────────────────
+function catClass(cat) {
+  return { india: 'cat-india', global: 'cat-global', policy: 'cat-policy', risk: 'cat-risk', sector: 'cat-sector' }[cat] || 'cat-muted';
+}
+function catLabel(cat) {
+  return { india: 'India', global: 'Global', policy: 'Policy', risk: 'Risk', sector: 'Sector' }[cat] || cat;
+}
+
+function buildCards() {
+  const grid = document.getElementById('event-grid');
+  grid.innerHTML = EVENTS.map(ev => `
+    <div class="event-card" id="card-${ev.id}">
+      <div class="event-header">
+        <span class="event-week">${ev.week}</span>
+        <span class="event-title">${ev.title}</span>
+        <span class="event-decision-chip pending" id="chip-${ev.id}">Pending</span>
+      </div>
+      <div class="event-body">
+        <span class="cat-badge ${catClass(ev.cat)}">${catLabel(ev.cat)}</span>&nbsp;
+        ${ev.india_equity ? `<strong>India:</strong> ${ev.india_equity}<br>` : ''}
+        ${ev.global_macro ? `<strong>Global:</strong> ${ev.global_macro}<br>` : ''}
+        ${ev.policy ? `<strong>Policy:</strong> ${ev.policy}<br>` : ''}
+        ${ev.risk_event ? `<strong>Risk:</strong> ${ev.risk_event}` : ''}
+      </div>
+      <div class="event-threads">${ev.threads.map(t => `<span class="thread-pill">${t}</span>`).join('')}</div>
+      <div class="event-source">Source: ${ev.source}</div>
+      <div class="event-actions">
+        <span style="font-size:11px;color:var(--muted)">Decision:</span>
+        <button class="btn btn-accept" onclick="decide('${ev.id}','accept')">Accept</button>
+        <button class="btn btn-reject" onclick="decide('${ev.id}','reject')">Reject</button>
+        <button class="btn btn-modify" onclick="decide('${ev.id}','modify')">Modify</button>
+        <input class="notes-field" id="notes-${ev.id}" placeholder="Notes..." oninput="saveNotes('${ev.id}')" style="min-width:150px;border-radius:4px;padding:4px 8px;">
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Export ─────────────────────────────────────────────────────────────────────
+function exportAll() {
+  const st = getState();
+  const approved = EVENTS.filter(ev => st.decisions[ev.id] === 'accept' || st.decisions[ev.id] === 'modify');
+  const records = approved.map(ev => ({
+    week: ev.week,
+    india_equity: ev.india_equity || null,
+    global_macro: ev.global_macro || null,
+    policy: ev.policy || null,
+    sector: ev.sector || null,
+    risk_event: ev.risk_event || null,
+    source_url: "manual-seed-" + ev.id,
+  }));
+
+  const lines = records.map(r => JSON.stringify(r)).join('\n');
+  const script = `#!/usr/bin/env python3
+"""seed_digest.py — auto-generated from SPEC_REVIEW.html approved events.
+Run: python seed_digest.py
+Writes ${records.length} approved weekly events to history-digest.jsonl.
+"""
+import json
+from pathlib import Path
+
+RECORDS = ${JSON.stringify(records, null, 2)}
+
+output = Path("history-digest.jsonl")
+existing = set()
+if output.exists():
+    for line in output.read_text().splitlines():
+        try:
+            existing.add(json.loads(line).get("week",""))
+        except Exception:
+            pass
+
+written = 0
+with output.open("a", encoding="utf-8") as f:
+    for rec in RECORDS:
+        if rec["week"] not in existing:
+            f.write(json.dumps(rec) + "\\n")
+            written += 1
+            print(f"  + {rec['week']} — {(rec.get('india_equity') or '')[:60]}")
+        else:
+            print(f"  ~ skip {rec['week']} (already present)")
+
+print(f"\\n[OK] {written} new records written to history-digest.jsonl")
+`;
+  document.getElementById('export-text').value = script;
+  document.getElementById('export-modal').classList.add('open');
+}
+
+function copyExport() {
+  const ta = document.getElementById('export-text');
+  ta.select();
+  document.execCommand('copy');
+  const btn = document.querySelector('.modal .btn-accept');
+  btn.textContent = 'Copied!';
+  setTimeout(() => btn.textContent = 'Copy to Clipboard', 2000);
+}
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+document.getElementById('export-modal').addEventListener('click', e => {
+  if (e.target.id === 'export-modal') e.target.classList.remove('open');
+});
+
+buildCards();
+renderAll();
+</script>
+</body>
+</html>
