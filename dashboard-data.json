@@ -1,55 +1,55 @@
 {
   "meta": {
-    "last_updated": "2026-06-16T08:12:16.852249+05:30",
-    "last_loop3": "2026-06-16T08:12:16.852265+05:30",
+    "last_updated": "2026-06-17T08:22:35.196901+05:30",
+    "last_loop3": "2026-06-17T08:22:35.196919+05:30",
     "last_loop2": null,
     "version": "vh1"
   },
   "daily": {
-    "date": "2026-06-16",
+    "date": "2026-06-17",
     "bias": "cautious",
-    "bias_reason": "Nifty surged +231 pts (+0.98%) on June 15 to 23,854, reclaiming the 50-DMA (~23,750) on a global risk-on rally triggered by the US-Iran preliminary peace deal; India VIX fell 3% to ~14. The key driver is macro geopolitical relief—not structural FII reversal—with the US-Iran deal cutting crude ($83.42 from ~$89) and sparking a broad sector rally.",
-    "watch": "Watch FII daily cash flow (June 15 provisional) — a confirmed net buy triggers T1 Capitulation Reversal signal; also watch Nifty 24,000 resistance and US-Iran deal in-person signing expected Friday.",
+    "bias_reason": "Nifty closed at 23,989 on June 16 (+135 pts, +0.57%), extending its rally above the 50-DMA (~23,750) as India VIX collapsed to 13.36 (-6.9%) and Brent crude retreated to $79 -- a combined tailwind for Indian equities. The key driver is the ongoing US-Iran geopolitical relief easing crude and risk premia, with VIX at a multi-month low signalling low near-term fear, though FII flow direction for June 16 remains unconfirmed pre-market.",
+    "watch": "Watch FII June 16 provisional data (release ~11 AM IST): a second consecutive net buy day would trigger T1 Capitulation Reversal signal and could push Nifty toward 24,200 resistance. Also monitor USDINR -- holding above 94.60 risks RBI intervention.",
     "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "23,854",
-        "change": "+0.98%",
-        "prev_close": "23,622",
+        "value": "23,989",
+        "change": "+0.57%",
+        "prev_close": "23,854",
         "alert": false
       },
       "vix": {
-        "value": "14.0",
-        "change": "-3.0%",
+        "value": "13.36",
+        "change": "-0.99",
         "alert": false
       },
       "usdinr": {
-        "value": "94.44",
-        "change": "-0.03%",
+        "value": "94.60",
+        "change": "+0.17",
         "alert": false
       },
       "pcr": {
-        "value": "1.02",
-        "change": "neutral",
+        "value": "--",
+        "change": "",
         "alert": false
       },
       "breadth": {
-        "value": "72%",
-        "change": "broad rally",
+        "value": "--",
+        "change": "",
         "alert": false
       },
       "fii": {
         "value": "--",
-        "note": "June 15 provisional pending; 30d: -76,408 Cr context",
+        "note": "Jun 16 provisional unavailable pre-market; 30d context: persistent selling turning; Jun 15 data: pending",
         "alert": false
       },
       "crude": {
-        "value": "$83.42",
-        "change": "+0.3%",
+        "value": "$78.99",
+        "change": "-5.3% vs prior",
         "alert": false
       },
       "mmi": {
-        "value": "58",
+        "value": "56",
         "zone": "Greed",
         "alert": false
       }
@@ -146,6 +146,12 @@
         "bias": "cautious",
         "nifty": "23,622",
         "fii": "-₹1,082 Cr"
+      },
+      {
+        "date": "2026-06-16",
+        "bias": "cautious",
+        "nifty": "23,854",
+        "fii": "--"
       }
     ]
   }
