@@ -1,55 +1,55 @@
 {
   "meta": {
-    "last_updated": "2026-06-17T08:22:35.196901+05:30",
-    "last_loop3": "2026-06-17T08:22:35.196919+05:30",
+    "last_updated": "2026-06-19T08:18:44.211272+05:30",
+    "last_loop3": "2026-06-19T08:18:44.211285+05:30",
     "last_loop2": null,
     "version": "vh1"
   },
   "daily": {
-    "date": "2026-06-17",
+    "date": "2026-06-19",
     "bias": "cautious",
-    "bias_reason": "Nifty closed at 23,989 on June 16 (+135 pts, +0.57%), extending its rally above the 50-DMA (~23,750) as India VIX collapsed to 13.36 (-6.9%) and Brent crude retreated to $79 -- a combined tailwind for Indian equities. The key driver is the ongoing US-Iran geopolitical relief easing crude and risk premia, with VIX at a multi-month low signalling low near-term fear, though FII flow direction for June 16 remains unconfirmed pre-market.",
-    "watch": "Watch FII June 16 provisional data (release ~11 AM IST): a second consecutive net buy day would trigger T1 Capitulation Reversal signal and could push Nifty toward 24,200 resistance. Also monitor USDINR -- holding above 94.60 risks RBI intervention.",
+    "bias_reason": "Nifty 50 extended its five-session winning streak to 24,168 (+82 pts, +0.34%), now 341 points above the 50-DMA (~23,827), as India VIX collapsed to 12.67 (-3.9%), a multi-month low, and INR firmed sharply to 94.32 (-0.57). The key driver is falling fear premium (VIX now sub-13) and INR strength — together signalling improving FII risk appetite — though breadth at 61.4% (27A/17D in Nifty 50) remains in the cautious zone with IT heavyweights (Infy -2.6%, TCS -0.9%) dragging.",
+    "watch": "Watch FII provisional cash flow data for June 19 (due ~3 PM IST): a confirmed buy day alongside VIX sub-13 would trigger a breakout setup toward 24,400-24,500 resistance. Also track Nifty IT index — if Infosys weakness broadens to HCL/Wipro, breadth will deteriorate and cap the rally.",
     "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "23,989",
-        "change": "+0.57%",
-        "prev_close": "23,854",
+        "value": "24,168",
+        "change": "+0.34%",
+        "prev_close": "24,086",
         "alert": false
       },
       "vix": {
-        "value": "13.36",
-        "change": "-0.99",
+        "value": "12.67",
+        "change": "-0.52",
         "alert": false
       },
       "usdinr": {
-        "value": "94.60",
-        "change": "+0.17",
+        "value": "94.32",
+        "change": "-0.57",
         "alert": false
       },
       "pcr": {
-        "value": "--",
+        "value": "~1.05",
         "change": "",
         "alert": false
       },
       "breadth": {
-        "value": "--",
-        "change": "",
+        "value": "61.4%",
+        "change": "27A/17D",
         "alert": false
       },
       "fii": {
         "value": "--",
-        "note": "Jun 16 provisional unavailable pre-market; 30d context: persistent selling turning; Jun 15 data: pending",
+        "note": "Jun 19 provisional data unavailable; 5-day Nifty rally (+2.3%) and VIX decline to 12.67 suggest FII selling abating",
         "alert": false
       },
       "crude": {
-        "value": "$78.99",
-        "change": "-5.3% vs prior",
+        "value": "$79.68",
+        "change": "+0.16%",
         "alert": false
       },
       "mmi": {
-        "value": "56",
+        "value": "~62",
         "zone": "Greed",
         "alert": false
       }
@@ -151,6 +151,12 @@
         "date": "2026-06-16",
         "bias": "cautious",
         "nifty": "23,854",
+        "fii": "--"
+      },
+      {
+        "date": "2026-06-17",
+        "bias": "cautious",
+        "nifty": "23,989",
         "fii": "--"
       }
     ]
