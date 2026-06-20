@@ -1,8 +1,8 @@
 {
   "meta": {
-    "last_updated": "2026-06-20T08:08:25.009598+05:30",
+    "last_updated": "2026-06-20T14:04:38.858885+05:30",
     "last_loop3": "2026-06-20T08:08:25.009616+05:30",
-    "last_loop2": null,
+    "last_loop2": "2026-06-20T14:04:38.858897+05:30",
     "version": "vh1"
   },
   "daily": {
@@ -63,54 +63,35 @@
     }
   },
   "weekly": {
-    "date": "2026-06-13",
-    "summary": "Dashboard initialized. First weekly synthesis will run Saturday June 14, 2026.",
+    "date": "2026-06-20",
+    "summary": "Nifty reclaimed 24,000 this week, closing at 24,013 (+1.65%) after tagging an intraweek high of 24,189 on Thursday, then fading into Friday alongside Bank Nifty (57,686, also red on Friday). The real driver was intermarket, not flows: WTI crude collapsed ~10% to $76.5 (Brent $80.6) and USDINR firmed to ~94.3 even as the dollar index pushed to a three-week high near 100.85. That INR-up-while-DXY-up divergence is the week's most important tell — it implies crude relief and genuine inflow are absorbing dollar strength, quietly undercutting the FII-exodus narrative. The non-obvious risk: this entire reclaim happened with zero confirmed FII buy data, so the marginal buyer is unverified — likely DII SIPs plus short-covering. If DXY keeps climbing past 101, the crude tailwind gets overwhelmed and FII selling can resume into resistance. Friday's twin fade after a five-day run argues the easy money is made. Posture: constructive but unconfirmed — the macro backdrop (cheap crude, firm INR) is the best in weeks, but conviction stays capped until FII flow prints positive.",
+    "market_posture": "Constructive on macro, unconfirmed on flows — hold 24k, but await FII buy-print before adding longs into resistance.",
     "threads": [
       {
         "name": "FII Exodus — Structural Outflow",
-        "status": "red",
-        "models_applied": [
-          "monetary_transmission",
-          "financial_stability"
-        ],
-        "pov": "FII sold ₹76,408 Cr in 30 days — likely driven by DXY strength and EM rotation to China. DII SIP flows are the floor. T1 Capitulation Reversal setup forming. When FII turns, reversal will be sharp.",
-        "watch_next_week": "Daily FII cash — 3 consecutive buy days = T1 model activates. Monitor FII L/S ratio on NSE Bhavcopy.",
-        "confidence": "high",
-        "sources": [
-          "ET Markets FII/DII data June 12, 2026"
-        ]
+        "pov": "Intermarket evidence shifted against the bear thesis this week: INR strengthened to ~94.3 despite a rising dollar, and the index reclaimed 24k — behavior inconsistent with active heavy selling. But no confirmed FII provisional buy data printed all week, so the outflow cannot be declared over; upgrading red to yellow on improving conditions, not resolution.",
+        "status": "yellow",
+        "watch_next_week": "First confirmed FII provisional cash print Monday. 3 consecutive net-buy days activates the T1 Capitulation Reversal setup; a single >₹5,000 Cr sell day flips it back to red."
       },
       {
         "name": "RBI Rate Cycle — Transmission Lag",
+        "pov": "The ~10% crude crash and a firming rupee materially ease the inflation/INR constraint on RBI, giving the easing path more room without defending the currency. Thesis intact and incrementally more favorable; banks led most of the week (Bank Nifty +1.5%) before Friday's fade.",
         "status": "yellow",
-        "models_applied": [
-          "monetary_transmission",
-          "consumption_squeeze"
-        ],
-        "pov": "RBI cuts are in system (repo at 5.75%) but credit growth and housing recovery are lagging. June MPC outcome + INR trajectory will determine if easing continues or pauses.",
-        "watch_next_week": "June MPC decision and RBI governor language on INR vs. growth trade-off. Banking/NBFC stocks reaction.",
-        "confidence": "medium",
-        "sources": [
-          "RBI policy history, backtest W01 Dec 2025"
-        ]
+        "watch_next_week": "Any RBI commentary on INR vs. growth; banking/NBFC follow-through after Friday's pullback; whether cheaper crude shows up in inflation expectations."
       },
       {
         "name": "Monsoon 2026 Onset",
+        "pov": "No fresh IMD weekly data was retrievable this week, leaving onset progress unconfirmed. Thesis unchanged: normal/above-normal rainfall validates the rural-consumption recovery; any deficit caps consumer-name upside. Holding yellow pending data.",
         "status": "yellow",
-        "models_applied": [
-          "consumption_squeeze",
-          "formalization_thesis"
-        ],
-        "pov": "June onset month. Normal/above-normal monsoon validates rural consumption recovery (FMCG, two-wheelers, agri). Deficit extends rural squeeze and caps Nifty upside in consumer names.",
-        "watch_next_week": "IMD forecast update. Kerala/Karnataka onset timing. Rainfall vs. long-period average.",
-        "confidence": "medium",
-        "sources": [
-          "IMD seasonal outlook, seasonal pattern analysis"
-        ]
+        "watch_next_week": "IMD weekly rainfall vs. long-period average and core-monsoon-zone coverage; FMCG/two-wheeler/agri-input price action as a market proxy."
       }
     ],
-    "backlog": [],
-    "market_posture": "Cautious. FII selling persistent. Hold reduced leverage until FII flow turns or RBI/monsoon provides positive catalyst."
+    "promoted_threads": [],
+    "week_stats": {
+      "nifty_change": "+1.65%",
+      "fii_net": "unconfirmed (no provisional print available)",
+      "dii_net": "unconfirmed (no provisional print available)"
+    }
   },
   "config": {
     "threads": [
@@ -121,7 +102,7 @@
           "monetary_transmission",
           "financial_stability"
         ],
-        "status": "red"
+        "status": "yellow"
       },
       {
         "name": "RBI Rate Cycle — Transmission Lag",
@@ -146,7 +127,57 @@
     "decay_warning_at": "2026-07-11"
   },
   "history": {
-    "weekly_povs": [],
+    "weekly_povs": [
+      {
+        "date": "2026-06-13",
+        "summary": "Dashboard initialized. First weekly synthesis will run Saturday June 14, 2026.",
+        "market_posture": "Cautious. FII selling persistent. Hold reduced leverage until FII flow turns or RBI/monsoon provides positive catalyst.",
+        "threads": [
+          {
+            "name": "FII Exodus — Structural Outflow",
+            "status": "red",
+            "models_applied": [
+              "monetary_transmission",
+              "financial_stability"
+            ],
+            "pov": "FII sold ₹76,408 Cr in 30 days — likely driven by DXY strength and EM rotation to China. DII SIP flows are the floor. T1 Capitulation Reversal setup forming. When FII turns, reversal will be sharp.",
+            "watch_next_week": "Daily FII cash — 3 consecutive buy days = T1 model activates. Monitor FII L/S ratio on NSE Bhavcopy.",
+            "confidence": "high",
+            "sources": [
+              "ET Markets FII/DII data June 12, 2026"
+            ]
+          },
+          {
+            "name": "RBI Rate Cycle — Transmission Lag",
+            "status": "yellow",
+            "models_applied": [
+              "monetary_transmission",
+              "consumption_squeeze"
+            ],
+            "pov": "RBI cuts are in system (repo at 5.75%) but credit growth and housing recovery are lagging. June MPC outcome + INR trajectory will determine if easing continues or pauses.",
+            "watch_next_week": "June MPC decision and RBI governor language on INR vs. growth trade-off. Banking/NBFC stocks reaction.",
+            "confidence": "medium",
+            "sources": [
+              "RBI policy history, backtest W01 Dec 2025"
+            ]
+          },
+          {
+            "name": "Monsoon 2026 Onset",
+            "status": "yellow",
+            "models_applied": [
+              "consumption_squeeze",
+              "formalization_thesis"
+            ],
+            "pov": "June onset month. Normal/above-normal monsoon validates rural consumption recovery (FMCG, two-wheelers, agri). Deficit extends rural squeeze and caps Nifty upside in consumer names.",
+            "watch_next_week": "IMD forecast update. Kerala/Karnataka onset timing. Rainfall vs. long-period average.",
+            "confidence": "medium",
+            "sources": [
+              "IMD seasonal outlook, seasonal pattern analysis"
+            ]
+          }
+        ]
+      }
+    ],
     "daily_biases": [
       {
         "date": "2026-06-13",
