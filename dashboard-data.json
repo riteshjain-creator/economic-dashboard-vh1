@@ -1,64 +1,64 @@
 {
   "meta": {
-    "last_updated": "2026-06-20T14:04:38.858885+05:30",
-    "last_loop3": "2026-06-20T08:08:25.009616+05:30",
+    "last_updated": "2026-06-22T08:15:38.461365+05:30",
+    "last_loop3": "2026-06-22T08:15:38.461382+05:30",
     "last_loop2": "2026-06-20T14:04:38.858897+05:30",
     "version": "vh1"
   },
   "daily": {
-    "date": "2026-06-20",
+    "date": "2026-06-22",
     "bias": "cautious",
-    "bias_reason": "Nifty 50 closed Friday at 24,168 (+0.34%, +82 pts), completing a five-session winning streak with a weekly gain of ~2.3% (23,622 → 24,168); India VIX at a multi-month low of 12.67 signals diminishing fear premium, while the index now trades 341 pts above its 50-DMA (~23,827). Markets closed today (Saturday); the key unresolved driver remains FII provisional flow — no confirmed buy/sell data was available all week, leaving the FII Exodus thread status ambiguous and capping conviction for a full bullish re-rating.",
-    "watch": "Watch Monday open for FII provisional cash-flow data confirming Friday intent; a sustained VIX below 13 + 3 consecutive FII buy days would activate the T1 Capitulation Reversal setup and open a path to 24,400–24,500. Also monitor monsoon IMD weekly update (due weekend) and any RBI communication on INR.",
-    "confidence": "low",
+    "bias_reason": "Nifty closed last session (Thu Jun 19) at 24,013 (-155 pts, -0.64%), pulled down by IT sector heavyweights — Infosys -6.5%, TCS -3.1%, HDFC Bank -2.2% — likely on Q1 earnings/guidance concerns; breadth flipped negative with only ~40% advancers. Low VIX (12.97) and Brent crude near $79 keep the macro backdrop supportive, but FII provisional flow remains unconfirmed for the fourth consecutive session, capping conviction for bulls.",
+    "watch": "Watch today's Nifty open for gap-fill or extension below 24,000 support; if Infosys/IT sector sell-off broadens into today's session, 23,800 becomes key. Also watch for first confirmed FII cash-flow print — three net-buy days activate the T1 Capitulation Reversal setup.",
+    "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "24,168",
-        "change": "+0.34%",
-        "prev_close": "24,086",
+        "value": "24,013",
+        "change": "-0.64%",
+        "prev_close": "24,168",
         "alert": false,
-        "note": "Friday Jun 19 close — no new data (markets closed Saturday)"
+        "note": "Jun 19 close (last session). Markets closed Jun 20 (holiday) + Jun 21 (Sunday). Jun 22 market opens 9:15 AM IST."
       },
       "vix": {
-        "value": "12.67",
-        "change": "-0.52",
+        "value": "12.97",
+        "change": "+0.30",
         "alert": false,
-        "note": "Friday Jun 19 — multi-month low; web fetch unavailable"
+        "note": "Jun 19 close; low VIX bullish signal but ticked up from 12.67 low"
       },
       "usdinr": {
-        "value": "--",
-        "change": "--",
+        "value": "94.31",
+        "change": "-0.01",
         "alert": false,
-        "note": "Web fetch failed (403); prior entry 94.32 flagged as likely data error"
+        "note": "Live forex rate at 8 AM IST Jun 22; stable"
       },
       "pcr": {
         "value": "--",
         "change": "",
         "alert": false,
-        "note": "Web fetch failed (403)"
+        "note": "Web fetch failed (403 on NSE); prior week: unavailable"
       },
       "breadth": {
-        "value": "61.4%",
-        "change": "27A/17D",
-        "alert": false,
-        "note": "Friday Jun 19 — cautious zone; no new data today"
+        "value": "40.0%",
+        "change": "4A/5D",
+        "alert": true,
+        "note": "Sampled 10 Nifty50 stocks (Jun 19). IT drag: INFY -6.5%, TCS -3.1%, HDFCBANK -2.2%. Low confidence (n=10)"
       },
       "fii": {
         "value": "--",
-        "note": "Provisional FII data unavailable all week. FII Exodus thread remains red until 3 consecutive buy days confirmed.",
+        "note": "Provisional FII unavailable (NSE 403). DII net Jun 19: -₹1,160 Cr (selling). FII Exodus thread stays yellow until 3 buy-days confirmed.",
         "alert": true
       },
       "crude": {
-        "value": "--",
-        "change": "--",
+        "value": "$79.3",
+        "change": "-0.75%",
         "alert": false,
-        "note": "Web fetch failed (403); last confirmed ~$79.68 (Jun 19)"
+        "note": "Brent live Jun 22 7:53 AM IST; WTI $75.47. Supportive macro backdrop."
       },
       "mmi": {
         "value": "--",
-        "zone": "Greed (est.)",
+        "zone": "Fear (est.)",
         "alert": false,
-        "note": "Web fetch failed (403); prior reading ~62 (Greed)"
+        "note": "Direct MMI fetch failed. CNN Fear & Greed proxy = 37.3 (Fear) Jun 19. Estimated MMI ~42-47 (Neutral edge)."
       }
     }
   },
@@ -199,6 +199,12 @@
       },
       {
         "date": "2026-06-19",
+        "bias": "cautious",
+        "nifty": "24,168",
+        "fii": "--"
+      },
+      {
+        "date": "2026-06-20",
         "bias": "cautious",
         "nifty": "24,168",
         "fii": "--"
