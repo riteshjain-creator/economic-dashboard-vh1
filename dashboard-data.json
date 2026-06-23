@@ -1,64 +1,64 @@
 {
   "meta": {
-    "last_updated": "2026-06-22T08:15:38.461365+05:30",
-    "last_loop3": "2026-06-22T08:15:38.461382+05:30",
+    "last_updated": "2026-06-23T08:12:36.958625+05:30",
+    "last_loop3": "2026-06-23T08:12:36.958639+05:30",
     "last_loop2": "2026-06-20T14:04:38.858897+05:30",
     "version": "vh1"
   },
   "daily": {
-    "date": "2026-06-22",
+    "date": "2026-06-23",
     "bias": "cautious",
-    "bias_reason": "Nifty closed last session (Thu Jun 19) at 24,013 (-155 pts, -0.64%), pulled down by IT sector heavyweights — Infosys -6.5%, TCS -3.1%, HDFC Bank -2.2% — likely on Q1 earnings/guidance concerns; breadth flipped negative with only ~40% advancers. Low VIX (12.97) and Brent crude near $79 keep the macro backdrop supportive, but FII provisional flow remains unconfirmed for the fourth consecutive session, capping conviction for bulls.",
-    "watch": "Watch today's Nifty open for gap-fill or extension below 24,000 support; if Infosys/IT sector sell-off broadens into today's session, 23,800 becomes key. Also watch for first confirmed FII cash-flow print — three net-buy days activate the T1 Capitulation Reversal setup.",
+    "bias_reason": "Nifty 50 closed Jun 22 at 24,102.9 (+89.8 pts, +0.37%), IT sector staged a sharp reversal (+0.74% after Friday's -6.5% carnage) while Bank Nifty added +0.43%; broader Nifty 500 breadth strengthened to 65% (325A/175D) though Nifty 50 breadth remained narrow at 54% (27A/23D), and VIX fell to 12.84 (-3.88%), its lowest close in weeks. FII provisional data for Jun 22 registered -₹635.91 Cr — a fourth consecutive net-sell session but the mildest, offset by DII buying of +₹1,035.72 Cr; the T1 Capitulation Reversal trigger (3 consecutive FII buy days) remains unactivated, keeping conviction capped despite an improving MMI now at 68.3 (Greed).",
+    "watch": "Watch for first FII provisional net-buy print on Jun 23 — any positive flow would be the first since the exodus began; also watch 24,200 as the next resistance (Jun 19 intraday high), and Brent crude near $77.91 after a -1.33% slide (WTI -2.63%) which could weigh on NIFTY Oil & Gas but supports INR and RBI easing expectations.",
     "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "24,013",
-        "change": "-0.64%",
-        "prev_close": "24,168",
+        "value": "24,103",
+        "change": "+0.37%",
+        "prev_close": "24,013",
         "alert": false,
-        "note": "Jun 19 close (last session). Markets closed Jun 20 (holiday) + Jun 21 (Sunday). Jun 22 market opens 9:15 AM IST."
+        "note": "Jun 22 close. NSE official: 24,102.9 (+89.8 pts). Jun 23 market not yet open at scan time (8 AM IST)."
       },
       "vix": {
-        "value": "12.97",
-        "change": "+0.30",
+        "value": "12.84",
+        "change": "-0.13",
         "alert": false,
-        "note": "Jun 19 close; low VIX bullish signal but ticked up from 12.67 low"
+        "note": "Jun 22 close. Down from 12.97 prev. VIX < 13 = low fear, bullish signal. Yahoo v7 shows vs Jun 19: -3.88%."
       },
       "usdinr": {
-        "value": "94.31",
-        "change": "-0.01",
+        "value": "94.58",
+        "change": "-0.31",
         "alert": false,
-        "note": "Live forex rate at 8 AM IST Jun 22; stable"
+        "note": "NSE currency futures live at 8 AM IST Jun 23. Yahoo v7: 94.67 (prev 94.89). INR mildly weaker vs prior day."
       },
       "pcr": {
         "value": "--",
         "change": "",
         "alert": false,
-        "note": "Web fetch failed (403 on NSE); prior week: unavailable"
+        "note": "NSE option chain endpoint returned 403. PCR unavailable for 5th consecutive session."
       },
       "breadth": {
-        "value": "40.0%",
-        "change": "4A/5D",
-        "alert": true,
-        "note": "Sampled 10 Nifty50 stocks (Jun 19). IT drag: INFY -6.5%, TCS -3.1%, HDFCBANK -2.2%. Low confidence (n=10)"
+        "value": "65.0%",
+        "change": "325A/175D (Nifty500); 27A/23D (Nifty50=54%)",
+        "alert": false,
+        "note": "Nifty500 breadth crossed bullish 65% threshold. Nifty50 breadth 54% = cautious. Total market: 475A/274D = 63%."
       },
       "fii": {
-        "value": "--",
-        "note": "Provisional FII unavailable (NSE 403). DII net Jun 19: -₹1,160 Cr (selling). FII Exodus thread stays yellow until 3 buy-days confirmed.",
+        "value": "-₹635.91 Cr",
+        "note": "Jun 22 provisional: FII net -₹635.91 Cr (4th consecutive sell day, mildest). DII: +₹1,035.72 Cr (net buyer). 7d FII trend: negative streak continues. T1 setup not triggered.",
         "alert": true
       },
       "crude": {
-        "value": "$79.3",
-        "change": "-0.75%",
+        "value": "$77.91",
+        "change": "-1.33%",
         "alert": false,
-        "note": "Brent live Jun 22 7:53 AM IST; WTI $75.47. Supportive macro backdrop."
+        "note": "Brent Jun 23 live (Yahoo v7). WTI: $74.05 (-2.63%). Crude softening supports INR, RBI easing thesis. NIFTY Oil & Gas +0.92% on Jun 22 despite softer crude (sector lagging move)."
       },
       "mmi": {
-        "value": "--",
-        "zone": "Fear (est.)",
+        "value": "68.3",
+        "zone": "Greed",
         "alert": false,
-        "note": "Direct MMI fetch failed. CNN Fear & Greed proxy = 37.3 (Fear) Jun 19. Estimated MMI ~42-47 (Neutral edge)."
+        "note": "Tickertape MMI Jun 22 14:20 UTC = 68.33. Jun 19: 67.74. Trend: steadily rising from 55.8 (Jun 16). CNN F&G proxy: 34.74 (Fear) — divergence noted, India MMI and global F&G diverging."
       }
     }
   },
@@ -207,6 +207,12 @@
         "date": "2026-06-20",
         "bias": "cautious",
         "nifty": "24,168",
+        "fii": "--"
+      },
+      {
+        "date": "2026-06-22",
+        "bias": "cautious",
+        "nifty": "24,013",
         "fii": "--"
       }
     ]
