@@ -1,64 +1,64 @@
 {
   "meta": {
-    "last_updated": "2026-06-23T08:12:36.958625+05:30",
-    "last_loop3": "2026-06-23T08:12:36.958639+05:30",
+    "last_updated": "2026-06-24T08:17:33.841518+05:30",
+    "last_loop3": "2026-06-24T08:17:33.841531+05:30",
     "last_loop2": "2026-06-20T14:04:38.858897+05:30",
     "version": "vh1"
   },
   "daily": {
     "date": "2026-06-23",
-    "bias": "cautious",
-    "bias_reason": "Nifty 50 closed Jun 22 at 24,102.9 (+89.8 pts, +0.37%), IT sector staged a sharp reversal (+0.74% after Friday's -6.5% carnage) while Bank Nifty added +0.43%; broader Nifty 500 breadth strengthened to 65% (325A/175D) though Nifty 50 breadth remained narrow at 54% (27A/23D), and VIX fell to 12.84 (-3.88%), its lowest close in weeks. FII provisional data for Jun 22 registered -₹635.91 Cr — a fourth consecutive net-sell session but the mildest, offset by DII buying of +₹1,035.72 Cr; the T1 Capitulation Reversal trigger (3 consecutive FII buy days) remains unactivated, keeping conviction capped despite an improving MMI now at 68.3 (Greed).",
-    "watch": "Watch for first FII provisional net-buy print on Jun 23 — any positive flow would be the first since the exodus began; also watch 24,200 as the next resistance (Jun 19 intraday high), and Brent crude near $77.91 after a -1.33% slide (WTI -2.63%) which could weigh on NIFTY Oil & Gas but supports INR and RBI easing expectations.",
+    "bias": "bearish",
+    "bias_reason": "Nifty 50 closed Jun 23 at 23,824 (-278.8 pts, -1.16%), dragged by a broad IT-sector rout — INFY -3.39%, TCS -3.21%, ^CNXIT down -2.23% — as breadth collapsed to an extreme 20% (10A/39D on Nifty 50) and India VIX spiked +8.59% to 13.94, signalling a sharp single-day fear reset. The selloff is broad and index-weighted: Bank Nifty -1.30%, metals under pressure (JSWSTEEL -3.13%), while only defensives (CIPLA +1.23%, DRREDDY +0.82%) and POWERGRID provided cover; Brent crude softened further to $76.67 (-1.58%) and WTI touched $72.59 (-2.98%), which supports INR (flat at 94.73) but could not offset the tech-driven risk-off.",
+    "watch": "Watch for whether the IT selloff is driven by fresh US macro disappointment or global tech rotation — any US economic data or Fed commentary tonight will set the tone; also watch 23,600-23,700 as near-term Nifty support (June 20 closing base), and monitor whether FII provisional data for Jun 23 prints a large sell number that extends the outflow streak past 5 sessions.",
     "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "24,103",
-        "change": "+0.37%",
-        "prev_close": "24,013",
-        "alert": false,
-        "note": "Jun 22 close. NSE official: 24,102.9 (+89.8 pts). Jun 23 market not yet open at scan time (8 AM IST)."
+        "value": "23,824",
+        "change": "-1.16%",
+        "prev_close": "24,103",
+        "alert": true,
+        "note": "Jun 23 intraday/close. Yahoo v8: 23824.1 (-278.8 pts). Sharp sell-off from prior 24,103. VIX spike confirms fear."
       },
       "vix": {
-        "value": "12.84",
-        "change": "-0.13",
-        "alert": false,
-        "note": "Jun 22 close. Down from 12.97 prev. VIX < 13 = low fear, bullish signal. Yahoo v7 shows vs Jun 19: -3.88%."
+        "value": "13.94",
+        "change": "+1.10",
+        "alert": true,
+        "note": "India VIX Jun 23: 13.943 vs prev 12.84. +8.59% spike — largest single-day VIX move in weeks. Still <15 (not extreme fear), but the rate of change is alarming."
       },
       "usdinr": {
-        "value": "94.58",
-        "change": "-0.31",
+        "value": "94.73",
+        "change": "+0.02",
         "alert": false,
-        "note": "NSE currency futures live at 8 AM IST Jun 23. Yahoo v7: 94.67 (prev 94.89). INR mildly weaker vs prior day."
+        "note": "USD/INR flat at 94.73 vs 94.70 prior. Crude softness supporting INR despite broad market selloff. DXY +0.38% at 101.40."
       },
       "pcr": {
         "value": "--",
         "change": "",
         "alert": false,
-        "note": "NSE option chain endpoint returned 403. PCR unavailable for 5th consecutive session."
+        "note": "NSE option chain API blocked for 6th consecutive session. PCR unavailable. With VIX spike +8.59% and breadth at 20%, implied PCR likely < 0.9 (bearish options sentiment)."
       },
       "breadth": {
-        "value": "65.0%",
-        "change": "325A/175D (Nifty500); 27A/23D (Nifty50=54%)",
-        "alert": false,
-        "note": "Nifty500 breadth crossed bullish 65% threshold. Nifty50 breadth 54% = cautious. Total market: 475A/274D = 63%."
+        "value": "20.4%",
+        "change": "10A/39D (Nifty50)",
+        "alert": true,
+        "note": "Nifty 50 breadth: 10 advances / 39 declines = 20.4%. Extreme bearish — well below 45% threshold. Only defensives (CIPLA, DRREDDY, POWERGRID, BRITANNIA, AXISBANK) in green. IT, metals, tech all red."
       },
       "fii": {
-        "value": "-₹635.91 Cr",
-        "note": "Jun 22 provisional: FII net -₹635.91 Cr (4th consecutive sell day, mildest). DII: +₹1,035.72 Cr (net buyer). 7d FII trend: negative streak continues. T1 setup not triggered.",
+        "value": "--",
+        "note": "FII provisional data unavailable — all NSE/BSE/SEBI APIs blocked. Prior session (Jun 22) was -635.91 Cr (4th consecutive sell day). Likely continued selling given today's broad market decline.",
         "alert": true
       },
       "crude": {
-        "value": "$77.91",
-        "change": "-1.33%",
+        "value": "$76.67",
+        "change": "-1.58%",
         "alert": false,
-        "note": "Brent Jun 23 live (Yahoo v7). WTI: $74.05 (-2.63%). Crude softening supports INR, RBI easing thesis. NIFTY Oil & Gas +0.92% on Jun 22 despite softer crude (sector lagging move)."
+        "note": "Brent Jun 23: $76.67 vs prev $77.90. WTI: $72.59 (-2.98%). Crude soft — bearish for NIFTY Oil & Gas but supports INR and RBI easing thesis. DXY rising +0.38% despite crude drop."
       },
       "mmi": {
-        "value": "68.3",
+        "value": "67.1",
         "zone": "Greed",
         "alert": false,
-        "note": "Tickertape MMI Jun 22 14:20 UTC = 68.33. Jun 19: 67.74. Trend: steadily rising from 55.8 (Jun 16). CNN F&G proxy: 34.74 (Fear) — divergence noted, India MMI and global F&G diverging."
+        "note": "Tickertape MMI Jun 23 @ 14:20 UTC (7:50 PM IST): 67.06, down from 68.33 (Jun 22). Still Greed zone but trending lower with today's selloff. Watch for break below 60 (Neutral) if selling continues."
       }
     }
   },
@@ -214,6 +214,12 @@
         "bias": "cautious",
         "nifty": "24,013",
         "fii": "--"
+      },
+      {
+        "date": "2026-06-23",
+        "bias": "cautious",
+        "nifty": "24,103",
+        "fii": "-₹635.91 Cr"
       }
     ]
   }
