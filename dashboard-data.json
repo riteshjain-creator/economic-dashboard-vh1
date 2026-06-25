@@ -1,64 +1,64 @@
 {
   "meta": {
-    "last_updated": "2026-06-24T08:17:33.841518+05:30",
-    "last_loop3": "2026-06-24T08:17:33.841531+05:30",
+    "last_updated": "2026-06-25T08:15:27.994531+05:30",
+    "last_loop3": "2026-06-25T08:15:27.994548+05:30",
     "last_loop2": "2026-06-20T14:04:38.858897+05:30",
     "version": "vh1"
   },
   "daily": {
-    "date": "2026-06-23",
-    "bias": "bearish",
-    "bias_reason": "Nifty 50 closed Jun 23 at 23,824 (-278.8 pts, -1.16%), dragged by a broad IT-sector rout — INFY -3.39%, TCS -3.21%, ^CNXIT down -2.23% — as breadth collapsed to an extreme 20% (10A/39D on Nifty 50) and India VIX spiked +8.59% to 13.94, signalling a sharp single-day fear reset. The selloff is broad and index-weighted: Bank Nifty -1.30%, metals under pressure (JSWSTEEL -3.13%), while only defensives (CIPLA +1.23%, DRREDDY +0.82%) and POWERGRID provided cover; Brent crude softened further to $76.67 (-1.58%) and WTI touched $72.59 (-2.98%), which supports INR (flat at 94.73) but could not offset the tech-driven risk-off.",
-    "watch": "Watch for whether the IT selloff is driven by fresh US macro disappointment or global tech rotation — any US economic data or Fed commentary tonight will set the tone; also watch 23,600-23,700 as near-term Nifty support (June 20 closing base), and monitor whether FII provisional data for Jun 23 prints a large sell number that extends the outflow streak past 5 sessions.",
+    "date": "2026-06-24",
+    "bias": "cautious",
+    "bias_reason": "Nifty 50 closed Jun 24 at 24,021.65 (+197.55 pts, +0.83%), staging a partial recovery from the prior session's IT-led rout, with VIX retreating sharply by 4.43% to 13.33 — fear is easing but not gone. Breadth improved to 56% (28A/22D on Nifty 50), suggesting selective buying; INR firmed to 94.39 (-0.29%) and Brent crude fell to $72.93 (-1.27%), both supportive of India's macro, while ET Markets reporting confirms FII selling in bank stocks continues, capping conviction on the recovery.",
+    "watch": "Watch for provisional FII/DII data for Jun 24 — a net-buy print would be a significant positive catalyst and the clearest confirmation the Jun 23 selloff was a capitulation; also watch the 24,090 intraday high as near-term resistance (Jun 24 high), and whether IT stocks (INFY +2.65%, TCS +2.4% on Jun 24) can hold gains tomorrow given global tech sentiment. MMI at 67.41 (Greed) means market is pricing in optimism — any negative macro surprise could deflate quickly.",
     "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "23,824",
-        "change": "-1.16%",
-        "prev_close": "24,103",
-        "alert": true,
-        "note": "Jun 23 intraday/close. Yahoo v8: 23824.1 (-278.8 pts). Sharp sell-off from prior 24,103. VIX spike confirms fear."
+        "value": "24,021.65",
+        "change": "+0.83%",
+        "prev_close": "23,824.10",
+        "alert": false,
+        "note": "Jun 24 close. Recovery from Jun 23 selloff (-1.16%). Change: +197.55 pts. OHLC: O=23,795.8 H=24,090.05 L=23,789.25 C=24,021.65. Data from investing.com (verified timestamp: 2026-06-24 15:29 IST)."
       },
       "vix": {
-        "value": "13.94",
-        "change": "+1.10",
-        "alert": true,
-        "note": "India VIX Jun 23: 13.943 vs prev 12.84. +8.59% spike — largest single-day VIX move in weeks. Still <15 (not extreme fear), but the rate of change is alarming."
+        "value": "13.33",
+        "change": "-0.62",
+        "alert": false,
+        "note": "India VIX Jun 24: 13.33 vs prev 13.94. -4.43% pullback — fear receding sharply after Jun 23 spike. Still <15, well within normal range. OHLC: O=13.575, H=14.3025, L=13.295, C=13.325."
       },
       "usdinr": {
-        "value": "94.73",
-        "change": "+0.02",
+        "value": "94.39",
+        "change": "-0.27",
         "alert": false,
-        "note": "USD/INR flat at 94.73 vs 94.70 prior. Crude softness supporting INR despite broad market selloff. DXY +0.38% at 101.40."
+        "note": "USD/INR Jun 24: 94.39 vs prev 94.67. INR strengthened by 0.29%. Crude softness and possible FII reduced selling pressure. OHLC: O=94.436, H=94.436, L=94.370, C=94.392."
       },
       "pcr": {
         "value": "--",
         "change": "",
         "alert": false,
-        "note": "NSE option chain API blocked for 6th consecutive session. PCR unavailable. With VIX spike +8.59% and breadth at 20%, implied PCR likely < 0.9 (bearish options sentiment)."
+        "note": "NSE option chain API blocked for 7th consecutive session. PCR unavailable. VIX decline to 13.33 and Nifty recovery suggest options market likely showing reduced fear premium; implied PCR may be recovering toward neutral (0.9-1.0)."
       },
       "breadth": {
-        "value": "20.4%",
-        "change": "10A/39D (Nifty50)",
-        "alert": true,
-        "note": "Nifty 50 breadth: 10 advances / 39 declines = 20.4%. Extreme bearish — well below 45% threshold. Only defensives (CIPLA, DRREDDY, POWERGRID, BRITANNIA, AXISBANK) in green. IT, metals, tech all red."
+        "value": "56.0%",
+        "change": "28A/22D (Nifty50)",
+        "alert": false,
+        "note": "Nifty 50 breadth: 28 advances / 22 declines = 56.0%. Cautious zone (45-65%). Notable advancers: Adani Ent (+3.6%), Tech Mahindra (+3.25%), Trent (+3.31%), Bajaj Finance (+2.97%), Infosys (+2.65%), ICICI Bank (+2.64%). Decliners: Bajaj Auto (-2.74%), NTPC (-2.07%), Tata Steel (-1.76%)."
       },
       "fii": {
         "value": "--",
-        "note": "FII provisional data unavailable — all NSE/BSE/SEBI APIs blocked. Prior session (Jun 22) was -635.91 Cr (4th consecutive sell day). Likely continued selling given today's broad market decline.",
+        "note": "FII provisional data unavailable — NSE/BSE/SEBI APIs blocked. ET Markets news (Jun 24) confirms 'FIIs are ruthlessly selling bank stocks' at ~₹1,100 Cr/day pace. FII selling pattern likely continuing; DII countering. 7-day outflow streak likely ongoing.",
         "alert": true
       },
       "crude": {
-        "value": "$76.67",
-        "change": "-1.58%",
+        "value": "$72.93",
+        "change": "-1.27%",
         "alert": false,
-        "note": "Brent Jun 23: $76.67 vs prev $77.90. WTI: $72.59 (-2.98%). Crude soft — bearish for NIFTY Oil & Gas but supports INR and RBI easing thesis. DXY rising +0.38% despite crude drop."
+        "note": "Brent Crude Jun 24: $72.93 vs prev $73.87. -$0.94 (-1.27%). Continued soft crude — bearish for Oil & Gas (ONGC -1.78%) but supports INR stability and RBI easing thesis. WTI likely tracking similarly."
       },
       "mmi": {
-        "value": "67.1",
+        "value": "67.41",
         "zone": "Greed",
         "alert": false,
-        "note": "Tickertape MMI Jun 23 @ 14:20 UTC (7:50 PM IST): 67.06, down from 68.33 (Jun 22). Still Greed zone but trending lower with today's selloff. Watch for break below 60 (Neutral) if selling continues."
+        "note": "Tickertape MMI Jun 24 (updated 15:29 IST): 67.41 vs 67.06 (Jun 23). Slight uptick in greed despite Jun 23 selloff — market is still pricing in optimism. Watch for break below 60 (Neutral) if selling resumes."
       }
     }
   },
@@ -220,6 +220,12 @@
         "bias": "cautious",
         "nifty": "24,103",
         "fii": "-₹635.91 Cr"
+      },
+      {
+        "date": "2026-06-23",
+        "bias": "bearish",
+        "nifty": "23,824",
+        "fii": "--"
       }
     ]
   }
