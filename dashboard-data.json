@@ -1,64 +1,64 @@
 {
   "meta": {
-    "last_updated": "2026-06-25T08:15:27.994531+05:30",
-    "last_loop3": "2026-06-25T08:15:27.994548+05:30",
+    "last_updated": "2026-06-26T08:09:08.703430+05:30",
+    "last_loop3": "2026-06-26T08:09:08.703444+05:30",
     "last_loop2": "2026-06-20T14:04:38.858897+05:30",
     "version": "vh1"
   },
   "daily": {
-    "date": "2026-06-24",
+    "date": "2026-06-25",
     "bias": "cautious",
-    "bias_reason": "Nifty 50 closed Jun 24 at 24,021.65 (+197.55 pts, +0.83%), staging a partial recovery from the prior session's IT-led rout, with VIX retreating sharply by 4.43% to 13.33 — fear is easing but not gone. Breadth improved to 56% (28A/22D on Nifty 50), suggesting selective buying; INR firmed to 94.39 (-0.29%) and Brent crude fell to $72.93 (-1.27%), both supportive of India's macro, while ET Markets reporting confirms FII selling in bank stocks continues, capping conviction on the recovery.",
-    "watch": "Watch for provisional FII/DII data for Jun 24 — a net-buy print would be a significant positive catalyst and the clearest confirmation the Jun 23 selloff was a capitulation; also watch the 24,090 intraday high as near-term resistance (Jun 24 high), and whether IT stocks (INFY +2.65%, TCS +2.4% on Jun 24) can hold gains tomorrow given global tech sentiment. MMI at 67.41 (Greed) means market is pricing in optimism — any negative macro surprise could deflate quickly.",
+    "bias_reason": "Nifty 50 closed June 25 at 24,056.00 (+34 pts, +0.14%) on the weekly F&O expiry session, posting a third consecutive weekly gain (+0.2% for the week) as US-Iran ceasefire reopened Strait of Hormuz shipping lanes, sending Brent crude down ~1.4% to ~$72.7 and turbocharging auto stocks (+2.25%); however the headline flatters — broader breadth was decidedly negative (BSE 1,656 advances vs 2,556 declines, 37.6%), Nifty IT fell 0.86%, metals slid 1.37%, and markets closed ahead of a Muharram holiday Friday. The pivotal signal of the day was FII turning net buyers for the first time in weeks (+Rs383.76 Cr), ending a persistent outflow streak and activating the T1 Capitulation Reversal watch, while DII added a robust Rs5,747.75 Cr — the macro tailwind from crude's 37% crash from May peak is now the dominant driver.",
+    "watch": "Monitor Monday open carefully after the 3-day Muharram weekend: watch for a sustained FII buy-streak (2nd consecutive net-buy on Monday would be first confirmation of T1 reversal setup); track Nifty's ability to reclaim and hold 24,100 (the prior swing high and analyst-cited resistance); and watch Brent crude stability in $70-75/bbl range — any uptick toward $76+ risks reversing the macro tailwind that drove today's auto/aviation rally.",
     "confidence": "medium",
     "indicators": {
       "nifty": {
-        "value": "24,021.65",
-        "change": "+0.83%",
-        "prev_close": "23,824.10",
+        "value": "24,056.00",
+        "change": "+0.14%",
+        "prev_close": "24,021.65",
         "alert": false,
-        "note": "Jun 24 close. Recovery from Jun 23 selloff (-1.16%). Change: +197.55 pts. OHLC: O=23,795.8 H=24,090.05 L=23,789.25 C=24,021.65. Data from investing.com (verified timestamp: 2026-06-24 15:29 IST)."
+        "note": "Jun 25 close. +34.35 pts. 3rd consecutive weekly gain. OHLC: O=24,125.85 H=24,261.60 L=~23,990 C=24,056. Above 50-EMA (23,843) and 20-EMA (23,809). Weekly F&O expiry day. Market closed Jun 26 (Muharram). Source: Dhan/HBL/RMoney."
       },
       "vix": {
-        "value": "13.33",
-        "change": "-0.62",
+        "value": "13.05",
+        "change": "-0.34",
         "alert": false,
-        "note": "India VIX Jun 24: 13.33 vs prev 13.94. -4.43% pullback — fear receding sharply after Jun 23 spike. Still <15, well within normal range. OHLC: O=13.575, H=14.3025, L=13.295, C=13.325."
+        "note": "India VIX Jun 25: ~13.05 (-2.50% from prev 13.39). Intraday dipped to 12.76 in morning. Second consecutive day of decline. Well below 15 — low fear. Calmer trading environment per HBL market wrap."
       },
       "usdinr": {
-        "value": "94.39",
-        "change": "-0.27",
+        "value": "94.3950",
+        "change": "+0.26%",
         "alert": false,
-        "note": "USD/INR Jun 24: 94.39 vs prev 94.67. INR strengthened by 0.29%. Crude softness and possible FII reduced selling pressure. OHLC: O=94.436, H=94.436, L=94.370, C=94.392."
+        "note": "USD/INR Jun 25 close: 94.3950 (up 0.26% from prev session ~94.14). Slight INR weakening vs dollar on the day. Rupee touched 94.24 intraday. Near-flat on the week. Source: TradingEconomics, HBL."
       },
       "pcr": {
         "value": "--",
         "change": "",
         "alert": false,
-        "note": "NSE option chain API blocked for 7th consecutive session. PCR unavailable. VIX decline to 13.33 and Nifty recovery suggest options market likely showing reduced fear premium; implied PCR may be recovering toward neutral (0.9-1.0)."
+        "note": "NSE option chain API continues to block direct PCR fetch. No reliable PCR number obtained from search results. PCR unavailable for 8th+ consecutive session. VIX at 13.05 and expiry-day context suggests market neutral-to-cautious on options."
       },
       "breadth": {
-        "value": "56.0%",
-        "change": "28A/22D (Nifty50)",
-        "alert": false,
-        "note": "Nifty 50 breadth: 28 advances / 22 declines = 56.0%. Cautious zone (45-65%). Notable advancers: Adani Ent (+3.6%), Tech Mahindra (+3.25%), Trent (+3.31%), Bajaj Finance (+2.97%), Infosys (+2.65%), ICICI Bank (+2.64%). Decliners: Bajaj Auto (-2.74%), NTPC (-2.07%), Tata Steel (-1.76%)."
+        "value": "37.6%",
+        "change": "1656A/2556D (BSE)",
+        "alert": true,
+        "note": "BSE breadth Jun 25: 1,656 advanced / 2,556 declined / 194 unchanged (4,406 total) = 37.6% advance ratio. Firmly bearish zone (<45%). Broader market negative despite Nifty +0.14% headline. Nifty 50 gainers: IndiGo, M&M, Maruti, Titan, Grasim, Infosys. Decliners: ONGC, Hindalco, Power Grid, IT (-0.86%), Metals (-1.37%). BSE A/D ratio 0.65."
       },
       "fii": {
-        "value": "--",
-        "note": "FII provisional data unavailable — NSE/BSE/SEBI APIs blocked. ET Markets news (Jun 24) confirms 'FIIs are ruthlessly selling bank stocks' at ~₹1,100 Cr/day pace. FII selling pattern likely continuing; DII countering. 7-day outflow streak likely ongoing.",
-        "alert": true
+        "value": "+Rs384 Cr",
+        "note": "FII net bought Rs383.76 Cr on Jun 25 — FIRST confirmed net-buy print after extended selling streak. DII also bought Rs5,747.75 Cr. This is the T1 Capitulation Reversal trigger watch event. One buy day not confirmation; need 2-3 consecutive. Source: Trendlyne/Moneycontrol/RMoney.",
+        "alert": false
       },
       "crude": {
-        "value": "$72.93",
-        "change": "-1.27%",
+        "value": "$72.7",
+        "change": "-1.4%",
         "alert": false,
-        "note": "Brent Crude Jun 24: $72.93 vs prev $73.87. -$0.94 (-1.27%). Continued soft crude — bearish for Oil & Gas (ONGC -1.78%) but supports INR stability and RBI easing thesis. WTI likely tracking similarly."
+        "note": "Brent crude Jun 25: ~$72.7/bbl (-1.4% from prev $72.93). US-Iran ceasefire reopened Strait of Hormuz shipping lanes. Crude now ~37% off May peak. Key driver of day: auto (+2.25%), aviation (IndiGo +8.5%) surged on fuel cost relief. RBI macro easing room improved."
       },
       "mmi": {
-        "value": "67.41",
+        "value": "~66",
         "zone": "Greed",
         "alert": false,
-        "note": "Tickertape MMI Jun 24 (updated 15:29 IST): 67.41 vs 67.06 (Jun 23). Slight uptick in greed despite Jun 23 selloff — market is still pricing in optimism. Watch for break below 60 (Neutral) if selling resumes."
+        "note": "MMI not directly obtained; extrapolated from prior day 67.41 (Greed, Jun 24) and today's expiry-day profit-booking with negative breadth. Estimate ~65-67 range, Greed zone maintained. Confidence: low. 3-week winning streak and crude tailwind sustain elevated sentiment."
       }
     }
   },
@@ -225,6 +225,12 @@
         "date": "2026-06-23",
         "bias": "bearish",
         "nifty": "23,824",
+        "fii": "--"
+      },
+      {
+        "date": "2026-06-24",
+        "bias": "cautious",
+        "nifty": "24,021.65",
         "fii": "--"
       }
     ]
