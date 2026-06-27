@@ -1,8 +1,8 @@
 {
   "meta": {
-    "last_updated": "2026-06-27T08:11:44.426573+05:30",
+    "last_updated": "2026-06-27T14:04:21.906859+05:30",
     "last_loop3": "2026-06-27T08:11:44.426588+05:30",
-    "last_loop2": "2026-06-20T14:04:38.858897+05:30",
+    "last_loop2": "2026-06-27T14:04:21.906873+05:30",
     "version": "vh1"
   },
   "daily": {
@@ -63,34 +63,34 @@
     }
   },
   "weekly": {
-    "date": "2026-06-20",
-    "summary": "Nifty reclaimed 24,000 this week, closing at 24,013 (+1.65%) after tagging an intraweek high of 24,189 on Thursday, then fading into Friday alongside Bank Nifty (57,686, also red on Friday). The real driver was intermarket, not flows: WTI crude collapsed ~10% to $76.5 (Brent $80.6) and USDINR firmed to ~94.3 even as the dollar index pushed to a three-week high near 100.85. That INR-up-while-DXY-up divergence is the week's most important tell — it implies crude relief and genuine inflow are absorbing dollar strength, quietly undercutting the FII-exodus narrative. The non-obvious risk: this entire reclaim happened with zero confirmed FII buy data, so the marginal buyer is unverified — likely DII SIPs plus short-covering. If DXY keeps climbing past 101, the crude tailwind gets overwhelmed and FII selling can resume into resistance. Friday's twin fade after a five-day run argues the easy money is made. Posture: constructive but unconfirmed — the macro backdrop (cheap crude, firm INR) is the best in weeks, but conviction stays capped until FII flow prints positive.",
-    "market_posture": "Constructive on macro, unconfirmed on flows — hold 24k, but await FII buy-print before adding longs into resistance.",
+    "date": "2026-06-27",
+    "summary": "Nifty closed the holiday-shortened week at 24,056 (+0.18% vs prior Friday), defending 24,000 across four sessions despite a bearish BSE breadth print (only 37.6% advancers Thursday). The honest read: this was a narrow, large-cap rally carried by private banks while FMCG, metals and IT lagged — index strength masking broad-market fatigue. The real engine remains intermarket and flows, not breadth. Brent collapsed to ~$72.6 (a ~20% June drop, pre-war levels as Hormuz transit normalised and JP Morgan cut its H2 forecast), handing India its best disinflation tailwind in months, while DII bought a colossal ~₹11,100 Cr to absorb continued FII cash selling of ~₹2,077 Cr. The non-obvious tension: FII cash stayed negative all week, yet on Friday FIIs aggressively built index-futures longs (long-short ratio spiked to ~13.9) — derivatives positioning is turning bullish before cash confirms, a classic pre-reversal divergence that can resolve violently either way. With FII ownership at a 14-year low of 14.7%, the marginal seller is nearly exhausted. Posture for next week: constructive but unconfirmed. Cheap crude plus financials leadership justifies holding longs above 24,000; but until FII cash flips net-positive for 2-3 sessions and breadth broadens, conviction stays capped — buy dips toward 23,800-23,900, respect 24,260 resistance.",
+    "market_posture": "Constructive on macro and DII bid, unconfirmed on FII cash — hold 24k, buy dips to 23,800, but await FII cash turn and breadth broadening before adding aggressively.",
     "threads": [
       {
         "name": "FII Exodus — Structural Outflow",
-        "pov": "Intermarket evidence shifted against the bear thesis this week: INR strengthened to ~94.3 despite a rising dollar, and the index reclaimed 24k — behavior inconsistent with active heavy selling. But no confirmed FII provisional buy data printed all week, so the outflow cannot be declared over; upgrading red to yellow on improving conditions, not resolution.",
+        "pov": "FIIs stayed net sellers in cash this week (~-₹2,077 Cr) with ownership at a 14-year low of 14.7%, so the outflow is not over — but Friday's sharp index-futures long build-up (L/S ratio ~13.9) signals positioning is quietly turning before cash. The structural bear thesis is intact but losing momentum as cheap crude and a firm rupee erode the exodus rationale.",
         "status": "yellow",
-        "watch_next_week": "First confirmed FII provisional cash print Monday. 3 consecutive net-buy days activates the T1 Capitulation Reversal setup; a single >₹5,000 Cr sell day flips it back to red."
+        "watch_next_week": "FII provisional cash print Monday/Tuesday — 2-3 consecutive net-buy days activates T1 Capitulation Reversal; whether the futures L/S build-up converts into cash buying or unwinds. A single >₹5,000 Cr cash sell day flips this back to red."
       },
       {
         "name": "RBI Rate Cycle — Transmission Lag",
-        "pov": "The ~10% crude crash and a firming rupee materially ease the inflation/INR constraint on RBI, giving the easing path more room without defending the currency. Thesis intact and incrementally more favorable; banks led most of the week (Bank Nifty +1.5%) before Friday's fade.",
+        "pov": "The ~20% June crude crash and a steady rupee near 94.3 materially ease the inflation and INR constraints on RBI, and private banks led the index this week — consistent with a market pricing easier policy transmission. Thesis intact and incrementally more favourable.",
         "status": "yellow",
-        "watch_next_week": "Any RBI commentary on INR vs. growth; banking/NBFC follow-through after Friday's pullback; whether cheaper crude shows up in inflation expectations."
+        "watch_next_week": "Banking/financials follow-through and credit-growth commentary; any RBI signal on liquidity or the INR-vs-growth trade-off; whether cheaper crude shows up in softer inflation expectations."
       },
       {
         "name": "Monsoon 2026 Onset",
-        "pov": "No fresh IMD weekly data was retrievable this week, leaving onset progress unconfirmed. Thesis unchanged: normal/above-normal rainfall validates the rural-consumption recovery; any deficit caps consumer-name upside. Holding yellow pending data.",
+        "pov": "No fresh IMD weekly rainfall data was retrievable, leaving onset progress unconfirmed, and FMCG conspicuously lagged this week — a market proxy hinting rural-consumption conviction is still soft. Thesis unchanged but the lagging consumer tape is a mild yellow flag.",
         "status": "yellow",
-        "watch_next_week": "IMD weekly rainfall vs. long-period average and core-monsoon-zone coverage; FMCG/two-wheeler/agri-input price action as a market proxy."
+        "watch_next_week": "IMD weekly rainfall vs long-period average and core-zone coverage; FMCG/two-wheeler/agri-input price action as a recovery proxy; any pickup in rural-facing names alongside the broader rally."
       }
     ],
     "promoted_threads": [],
     "week_stats": {
-      "nifty_change": "+1.65%",
-      "fii_net": "unconfirmed (no provisional print available)",
-      "dii_net": "unconfirmed (no provisional print available)"
+      "nifty_change": "+0.18%",
+      "fii_net": "-2,077 Cr",
+      "dii_net": "+11,101 Cr"
     }
   },
   "config": {
@@ -174,6 +174,31 @@
             "sources": [
               "IMD seasonal outlook, seasonal pattern analysis"
             ]
+          }
+        ]
+      },
+      {
+        "date": "2026-06-20",
+        "summary": "Nifty reclaimed 24,000 this week, closing at 24,013 (+1.65%) after tagging an intraweek high of 24,189 on Thursday, then fading into Friday alongside Bank Nifty (57,686, also red on Friday). The real driver was intermarket, not flows: WTI crude collapsed ~10% to $76.5 (Brent $80.6) and USDINR firmed to ~94.3 even as the dollar index pushed to a three-week high near 100.85. That INR-up-while-DXY-up divergence is the week's most important tell — it implies crude relief and genuine inflow are absorbing dollar strength, quietly undercutting the FII-exodus narrative. The non-obvious risk: this entire reclaim happened with zero confirmed FII buy data, so the marginal buyer is unverified — likely DII SIPs plus short-covering. If DXY keeps climbing past 101, the crude tailwind gets overwhelmed and FII selling can resume into resistance. Friday's twin fade after a five-day run argues the easy money is made. Posture: constructive but unconfirmed — the macro backdrop (cheap crude, firm INR) is the best in weeks, but conviction stays capped until FII flow prints positive.",
+        "market_posture": "Constructive on macro, unconfirmed on flows — hold 24k, but await FII buy-print before adding longs into resistance.",
+        "threads": [
+          {
+            "name": "FII Exodus — Structural Outflow",
+            "pov": "Intermarket evidence shifted against the bear thesis this week: INR strengthened to ~94.3 despite a rising dollar, and the index reclaimed 24k — behavior inconsistent with active heavy selling. But no confirmed FII provisional buy data printed all week, so the outflow cannot be declared over; upgrading red to yellow on improving conditions, not resolution.",
+            "status": "yellow",
+            "watch_next_week": "First confirmed FII provisional cash print Monday. 3 consecutive net-buy days activates the T1 Capitulation Reversal setup; a single >₹5,000 Cr sell day flips it back to red."
+          },
+          {
+            "name": "RBI Rate Cycle — Transmission Lag",
+            "pov": "The ~10% crude crash and a firming rupee materially ease the inflation/INR constraint on RBI, giving the easing path more room without defending the currency. Thesis intact and incrementally more favorable; banks led most of the week (Bank Nifty +1.5%) before Friday's fade.",
+            "status": "yellow",
+            "watch_next_week": "Any RBI commentary on INR vs. growth; banking/NBFC follow-through after Friday's pullback; whether cheaper crude shows up in inflation expectations."
+          },
+          {
+            "name": "Monsoon 2026 Onset",
+            "pov": "No fresh IMD weekly data was retrievable this week, leaving onset progress unconfirmed. Thesis unchanged: normal/above-normal rainfall validates the rural-consumption recovery; any deficit caps consumer-name upside. Holding yellow pending data.",
+            "status": "yellow",
+            "watch_next_week": "IMD weekly rainfall vs. long-period average and core-monsoon-zone coverage; FMCG/two-wheeler/agri-input price action as a market proxy."
           }
         ]
       }
